@@ -15,6 +15,10 @@ app = Flask(__name__)
 def get_index():
     return render_template('index.html')
 
+@app.route('/create_space', methods=['GET'])
+def get_create_space():
+    return render_template('create_space.html')
+
 @app.route('/create_space', methods=['POST'])
 def create_space():
     return render_template('create_space.html')
