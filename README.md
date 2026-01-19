@@ -25,11 +25,11 @@ Everyone in the team should then clone this fork to their local machine to work 
 # If you have problems with the above, contact your coach
 
 # Create a test and development database
-(makersbnb-venv); createdb YOUR_PROJECT_NAME
-(makersbnb-venv); createdb YOUR_PROJECT_NAME_TEST
+(makersbnb-venv); createdb VIDI_MAKERSBNB_PROJECT
+(makersbnb-venv); createdb VIDI_MAKERSBNB_PROJECT_TEST
 
-# Open lib/database_connection.py and change the database names
-(makersbnb-venv); open lib/database_connection.py
+# Seed the database with the dev Data
+(makersbnb-venv); python seed_dev_database.py
 
 # Run the tests (with extra logging)
 (makersbnb-venv); pytest -sv
