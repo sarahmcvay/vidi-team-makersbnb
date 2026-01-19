@@ -9,7 +9,7 @@ def test_booking_constructs():
     assert booking.user_id == 1
     assert booking.space_id == 1
 
-def test_artists_format_nicely():
+def test_bookings_format_nicely():
     booking = Booking(1, "2026-01-01", "2026-01-02", "Test", 1, 1)
     assert str(booking) == "Booking(1, 2026-01-01, 2026-01-02, Test, 1, 1)"
 
