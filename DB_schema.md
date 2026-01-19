@@ -10,7 +10,7 @@ SPACES
 -id
 - Name
 - Price 
-- Description
+- Details
 - img link
 FK user_id(?)
 
@@ -18,7 +18,7 @@ FK user_id(?)
 - id
 - start_date
 - end_date 
-- status (pending, accepted, rejected)
+- flag (pending, accepted, rejected)
 FK - space_id
 FK - user_id
 
