@@ -1,4 +1,6 @@
 import os
+from lib.space import Space 
+from lib.space_repository import SpaceRepository
 from flask import Flask, request, render_template
 from lib.database_connection import get_flask_database_connection
 
