@@ -12,6 +12,9 @@ class SpaceRepository:
             spaces.append(item)
         return spaces
     
+
+    
     def create(self, space):
+        print("in create function")
         self._connection.execute('INSERT INTO spaces (name, price, details, img_link, user_id) VALUES (%s, %s, %s, %s, %s)', [space.name, space.price, space.details, space.img_link, space.user_id])
         return None
