@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{space.name}}</title>
+        <link rel="stylesheet" href="/static/style.css" >
+    </head>
+    <body>
+        <div class ='navbar'>
+            <a href = '/index' class='logo'><img src 'https://icons8.com/icon/OFOIleplyyh7/airbnb' alt='logo'></a>
+            <a href = '/browsing_spaces' class='item'>Browse Spaces</a>
+            <a href ='/create_space' class='item'>Create a New Space</a>
+        </div>
+        <h1>{{space.name}}</h1>
+        <img src='{{space.img_link}}' alt='placeholder'>
+        <p>Details: {{space.details}}</p>
+        <p>£{{space.price}}</p>
+    </body>
+</html>
