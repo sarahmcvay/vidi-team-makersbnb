@@ -13,6 +13,7 @@ app = Flask(__name__)
 #   ; open http://localhost:5001/index
 @app.route('/index', methods=['GET'])
 def get_index():
+    connection = get_flask_database_connection(app)
     return render_template('index.html')
 
 # These lines start the server if you run this file directly
