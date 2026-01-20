@@ -20,15 +20,7 @@ def login_required(route):
             return redirect('/login')
         return route(*args, **kwargs)
     return wrapper
-# GET /index
-# Returns the homepage
-# Try it:
-#   ; open http://localhost:5001/index
-@app.route('/index', methods=['GET'])
-@login_required
-def get_index():
-    connection = get_flask_database_connection(app)
-    return render_template('index.html')
+
 
 @app.route('/login', methods=['GET'])
 def login_form():
@@ -61,9 +53,7 @@ def logout():
 @app.route('/create_space', methods=['GET'])
 @login_required
 def get_create_space():
-    user_id = session.get('user_id')
-    if not user_id:
-        return redirect('/login')
+
     return render_template('create_space.html')
 
 @app.route('/create_space', methods=['POST'])
@@ -71,9 +61,7 @@ def get_create_space():
 def post_create_space():
 
     user_id = session.get('user_id')
-    if not user_id:
-        return redirect('/login')
-    
+
     name = request.form["name"]
     details = request.form["details"]
     price = request.form["price"]
@@ -87,12 +75,7 @@ def post_create_space():
 @app.route('/create_booking', methods=['GET'])
 @login_required
 def get_create_booking():
-    user_id = session.get('user_id')
-    if not user_id:
-        return redirect('/login')
-    
     return render_template('create_booking.html')
-
 
 @app.route('/browsing_spaces', methods=['GET'])
 @login_required
@@ -105,13 +88,8 @@ def get_spaces_browsing_page():
 @app.route('/user_dashboard', methods=['GET'])
 @login_required
 def get_user_dashboard():
-    user_id = session.get('user_id')
-    if not user_id:
-        return redirect('/login')
     return render_template('user_dashboard.html')
 
-# These lines start the server if you run this file directly
-# They also start the server configured to use the test database
-# if started in test mode.
+
 if __name__ == '__main__':
     app.run(debug=True, port=int(os.environ.get('PORT', 5001)))
