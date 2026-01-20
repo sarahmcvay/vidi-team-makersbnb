@@ -1,3 +1,43 @@
-body {
-    font-size: 18px;
+div{
+  color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+img{
+  size: 200px;
+}
+
+.navbar{
+  background-color: rgb(255, 91, 91);
+  border: 5px solid rgb(255, 91, 91);
+  border-radius: 10px;
+  font-size: 26px;
+  a{
+    display: inline-flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: white;
+    transition: ease 0.2s;
+
+  }
+  a:hover{
+    transform: scale(1.15);
+    color: rgb(227, 223, 223);
+  }
+}
+
+.bookings{
+  background-color: lightgray;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 75px;
+}
+
+.spaces{
+  background-color: lightgray;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 75px;
 }

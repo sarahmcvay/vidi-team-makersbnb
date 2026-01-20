@@ -10,6 +10,33 @@
         <link rel="stylesheet" href="/static/style.css" >
     </head>
     <body>
-        <p>This is the homepage.</p>
+      <div class ='navbar'>
+        <a href= '/index' class='logo'><img src 'https://icons8.com/icon/OFOIleplyyh7/airbnb' alt='logo'></a>
+        <a class='item'>item</a>
+        <a class='item'>item</a>
+      </div>
+      <div class='bookings'>
+        <ul>
+        {%for booking in bookings%}
+        <li>
+          <p>start date: {{booking.start_date}}</p><br>
+          <p>end date: {{booking.end_date}}</p><br>
+          <p>status: {{booking.flag}}</p>
+        </li>
+        {% endfor %}
+        </ul>
+      </div>
+      <div class'spaces'>
+        <ul>
+        {%for space in spaces%}
+        <li>
+          <img src= '{{space.img_link}}' alt='space image'>
+          <p>Space Name: {{space.name}}</p><br>
+          <p>Price: {{space.price}}</p><br>
+          <p>details: {{space.details}}
+        </li>
+        {% endfor %}
+        </ul>
+      </div>
     </body>
 </html>
