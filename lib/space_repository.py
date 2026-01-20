@@ -12,6 +12,20 @@ class SpaceRepository:
             spaces.append(item)
         return spaces
     
+    def find(self, space_id):
+        rows = self._connection.execute(
+            'SELECT * FROM spaces WHERE id = %s',
+            [space_id]
+        )
+        row = rows[0]
+        return Space(
+            row["id"],
+            row["name"],
+            row["price"],
+            row["details"],
+            row["img_link"],
+            row["user_id"]
+        )
 
     
     def create(self, space):

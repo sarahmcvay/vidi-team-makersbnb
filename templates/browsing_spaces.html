@@ -12,12 +12,14 @@
         </div>
         <h1>List of Spaces</h1>
         {% for space in spaces %}
-            <div>
-            <!-- {{space.img_link}} -->
+            <a class = 'space_box' href = '/show_space/{{space.id}}'>
+            <div class = 'space'>
+            <img src='{{space.img_link}}' alt='placeholder'>
             <p>{{space.name}}</p>
             <p>{{space.details}}</p>
             <p>{{space.price}}</p>
             </div>
+            </a>
         {% endfor %}
     </body>
 </html>
