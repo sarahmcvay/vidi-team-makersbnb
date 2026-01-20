@@ -14,3 +14,14 @@ def test_get_index(page, test_web_address):
 
     # We assert that it has the text "This is the homepage."
     expect(p_tag).to_contain_text
+    
+'''
+we can get the create booking page
+'''
+
+def test_get_new_booking_page(page, test_web_address):
+    page.goto(f'http://{test_web_address}/create_booking')
+    
+    p_tag = page.locator(".test")
+    
+    expect(p_tag).to_have_text("Select start date: ")
