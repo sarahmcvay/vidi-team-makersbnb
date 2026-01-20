@@ -10,9 +10,22 @@
             <a href = '/browsing_spaces' class='item'>Browse Spaces</a>
             <a href ='/create_space' class='item'>Create a New Space</a>
         </div>
+
         <h1>{{space.name}}</h1>
         <img src='{{space.img_link}}' alt='placeholder'>
         <p>Details: {{space.details}}</p>
-        <p>£{{space.price}}</p>
+        <p>£{{space.price}} per night</p>
+
+        <h1>Request a booking:</h1>
+        <div class="container">
+            <form method="POST" action="/create_space">
+                <p class='test'>Select Start Date: </p><input name='start_date' type="date"><br>
+                <p>Select End Date: </p><input name='end_date' type="date"><br>
+            </form>
+                <a href='/user_dashboard'><input type="submit" value="Submit Request"> </a><br>
+
+            <p><a href= '/browsing_spaces' class='item'>Back to Browsing</a></p>
+        </div>
+
     </body>
 </html>
