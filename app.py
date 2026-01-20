@@ -3,20 +3,29 @@ from lib.space import Space
 from lib.space_repository import SpaceRepository
 from lib.user import User
 from lib.user_repository import UserRepository
-from flask import Flask, request, render_template, session, redirect
+from flask import Flask, request, render_template, session, redirect, url_for
 from lib.database_connection import get_flask_database_connection
+from functools import wraps 
 
-# Create a new Flask app
+
+
 app = Flask(__name__)
 app.secret_key = "supersecretkey" 
 
-# == Your Routes Here ==
 
+def login_required(route):
+    @wraps(route)
+    def wrapper(*args, **kwargs):
+        if 'user_id' not in session:
+            return redirect('/login')
+        return route(*args, **kwargs)
+    return wrapper
 # GET /index
 # Returns the homepage
 # Try it:
 #   ; open http://localhost:5001/index
 @app.route('/index', methods=['GET'])
+@login_required
 def get_index():
     connection = get_flask_database_connection(app)
     return render_template('index.html')
@@ -44,8 +53,13 @@ def login_submit():
 
     return render_template('user_dashboard.html')
 
+@app.route('/logout', methods=['POST'])
+def logout():
+    session.clear() 
+    return redirect(url_for('login_form')) 
 
 @app.route('/create_space', methods=['GET'])
+@login_required
 def get_create_space():
     user_id = session.get('user_id')
     if not user_id:
@@ -53,6 +67,7 @@ def get_create_space():
     return render_template('create_space.html')
 
 @app.route('/create_space', methods=['POST'])
+@login_required
 def post_create_space():
 
     user_id = session.get('user_id')
@@ -70,6 +85,7 @@ def post_create_space():
     return "Space added successfully"
 
 @app.route('/create_booking', methods=['GET'])
+@login_required
 def get_create_booking():
     user_id = session.get('user_id')
     if not user_id:
@@ -79,11 +95,20 @@ def get_create_booking():
 
 
 @app.route('/browsing_spaces', methods=['GET'])
+@login_required
 def get_spaces_browsing_page():
     connection = get_flask_database_connection(app)
     repository = SpaceRepository(connection)
     spaces = repository.all() 
     return render_template('browsing_spaces.html', spaces = spaces)
+
+@app.route('/user_dashboard', methods=['GET'])
+@login_required
+def get_user_dashboard():
+    user_id = session.get('user_id')
+    if not user_id:
+        return redirect('/login')
+    return render_template('user_dashboard.html')
 
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database
