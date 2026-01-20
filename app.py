@@ -34,7 +34,9 @@ def post_create_space():
     repository.create(space)
     return "Space added successfully"
 
-
+@app.route('/create_booking', methods=['GET'])
+def get_create_booking():
+    return render_template('create_booking.html')
 
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database
