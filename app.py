@@ -1,7 +1,9 @@
 import os
 from lib.space import Space 
 from lib.space_repository import SpaceRepository
-from flask import Flask, request, render_template
+from lib.user import User
+from lib.user_repository import UserRepository
+from flask import Flask, request, render_template, session
 from lib.database_connection import get_flask_database_connection
 
 # Create a new Flask app
@@ -17,6 +19,30 @@ app = Flask(__name__)
 def get_index():
     connection = get_flask_database_connection(app)
     return render_template('index.html')
+
+@app.route('/login', methods=['GET'])
+def login_form():
+    return render_template('login.html')
+
+@app.route('/login', methods=['POST'])
+def login_submit():
+    name = request.form['name']
+    email = request.form['email']
+    password = request.form['password']
+
+    connection = get_flask_database_connection(app)
+    repository = UserRepository(connection)
+    user = repository.find(name)
+
+    if user is None:
+        return render_template(
+            'login.html', 
+            error="Invalid email or password"), 401
+        
+    session['user_id'] = user.id
+
+    return render_template('user_dashboard.html')
+
 
 @app.route('/create_space', methods=['GET'])
 def get_create_space():

@@ -12,9 +12,9 @@ class UserRepository:
             users.append(item)
         return users
     
-    def find(self, user_id):
+    def find(self, name):
         rows = self._connection.execute(
-            'SELECT * FROM users WHERE id = %s', [user_id])
+            'SELECT * FROM users WHERE name = %s', [name])
         row = rows[0]
         return User(row["id"], row["name"], row["email"], row["password"])
     
