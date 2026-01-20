@@ -38,6 +38,14 @@ def post_create_space():
 def get_create_booking():
     return render_template('create_booking.html')
 
+
+@app.route('/browsing_spaces', methods=['GET'])
+def get_spaces_browsing_page():
+    connection = get_flask_database_connection(app)
+    repository = SpaceRepository(connection)
+    spaces = repository.all() 
+    return render_template('browsing_spaces.html', spaces = spaces)
+
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database
 # if started in test mode.

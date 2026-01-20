@@ -18,10 +18,18 @@ def test_get_index(page, test_web_address):
 '''
 we can get the create booking page
 '''
-
 def test_get_new_booking_page(page, test_web_address):
     page.goto(f'http://{test_web_address}/create_booking')
     
     p_tag = page.locator(".test")
     
     expect(p_tag).to_have_text("Select start date: ")
+
+"""
+We can get the browsing page to load
+"""
+def test_get_spaces_browsing_page(page, test_web_address):
+    page.goto(f'http://{test_web_address}/browsing_spaces')
+
+    p_tag = page.locator("h1")
+    expect(p_tag).to_have_text("List of Spaces")
