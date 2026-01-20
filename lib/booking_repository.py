@@ -14,8 +14,8 @@ class BookingRepository:
 
             item = Booking(
                 row["id"],
-                str(row["start_date"]),
-                str(row["end_date"]),
+                row["start_date"],
+                row["end_date"],
                 row["flag"],
                 row["user_id"],
                 row["space_id"]
@@ -31,9 +31,15 @@ class BookingRepository:
         row = rows[0]
         return Booking(
             row["id"],
-            str(row["start_date"]),
-            str(row["end_date"]),
+            row["start_date"],
+            row["end_date"],
             row["flag"],
             row["user_id"],
             row["space_id"]
         )
+
+    def create(self, booking):
+        self._connection.execute(
+            'INSERT INTO bookings (start_date, end_date, flag, user_id, space_id) VALUES (%s, %s, %s, %s, %s)', [booking.start_date, booking.end_date, booking.flag, booking.user_id, booking.space_id]
+        )
+        return None
