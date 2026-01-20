@@ -13,4 +13,5 @@ class SpaceRepository:
         return spaces
     
     def create(self, space):
-        
+        self._connection.execute('INSERT INTO spaces (name, price, details, img_link, user_id) VALUES (%s, %s, %s, %s, %s)', [space.name, space.price, space.details, space.img_link, space.user_id])
+        return None
