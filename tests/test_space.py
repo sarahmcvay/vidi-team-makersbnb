@@ -8,7 +8,7 @@ def test_space_constructs():
     assert space.id == 1
     assert space.name == "Test Name"
     assert space.price == 100.00
-    assert space.description == "Test Description"
+    assert space.details == "Test Description"
     assert space.img_link == "Test Link"
     assert space.user_id == 2
 
