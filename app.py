@@ -23,13 +23,13 @@ def get_create_space():
 
 @app.route('/create_space', methods=['POST'])
 def post_create_space():
-    space_name = request.form["space_name"]
-    space_description = request.form["space_description"]
-    cost_per_night = request.form["cost_per_night"]
+    name = request.form["name"]
+    details = request.form["details"]
+    price = request.form["price"]
     img_link = request.form["img_link"]
     connection = get_flask_database_connection(app)
     repository = SpaceRepository(connection)
-    space = Space(None, space_name, cost_per_night, space_description, img_link, None)
+    space = Space(None, name, price, details, img_link, None)
     repository.create(space)
     return "Space added successfully"
 
