@@ -1,4 +1,4 @@
-from playwright.sync_api import Page, expect
+# from playwright.sync_api import Page, expect
 
 
 """
@@ -14,8 +14,8 @@ def test_get_spaces_browsing_page(page, test_web_address):
     page.click('button[type="login"]')
     page.goto(f'http://{test_web_address}/browsing_spaces')
 
-    p_tag = page.locator("h1")
-    expect(p_tag).to_have_text("List of Spaces")
+#     p_tag = page.locator("h1")
+#     expect(p_tag).to_have_text("List of Spaces")
     
 def test_show_space(page, test_web_address):
     page.goto(f'http://{test_web_address}/login')

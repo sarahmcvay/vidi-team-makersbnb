@@ -18,11 +18,15 @@
 
         <h1>Request a booking:</h1>
         <div class="container">
-            <form method="POST" action="/create_space">
+            <form method="POST" action="/booking_requested">
                 <p class='test'>Select Start Date: </p><input name='start_date' type="date"><br>
                 <p>Select End Date: </p><input name='end_date' type="date"><br>
-            </form>
-                <a href='/user_dashboard'><input type="submit" value="Submit Request"> </a><br>
+                <input type="hidden" name="flag" value="pending">
+                <input type="hidden" name="user_id" value={{user_id}}>
+                <input type="hidden" name="space_id" value={{space.id}}>
+            
+                <input type="submit" value="Submit Request">
+                </form><br>
 
             <p><a href= '/browsing_spaces' class='item'>Back to Browsing</a></p>
         </div>
