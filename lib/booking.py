@@ -10,5 +10,8 @@ class Booking:
     def __eq__(self, other):
         return self.__dict__ == other.__dict__
     
+    def __str__(self):
+        return f"Booking({self.id}, {self.start_date}, {self.end_date}, {self.flag}, {self.user_id}, {self.space_id})"
+
     def __repr__(self):
         return f"Booking({self.id}, {self.start_date}, {self.end_date}, {self.flag}, {self.user_id}, {self.space_id})"
