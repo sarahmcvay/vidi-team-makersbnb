@@ -103,13 +103,16 @@ def create_booking_request():
     repository = BookingRepository(connection)
     booking = Booking(None, start_date, end_date, flag, user_id, space_id)
     requested_booking = repository.create(booking)
-    return render_template('booking_requested.html', requested_booking = requested_booking)
+    return redirect(f"/booking_requested/{requested_booking.id}")
 
-@app.route('/booking_requested', methods=['GET'])
+@app.route('/booking_requested/<int:booking_id>', methods=['GET'])
 @login_required
-def get_booking_requested_page():
-    return render_template('booking_requested.html')
-#Add params from booking request id, to url and run find on booking repo
+def get_booking_requested_page(booking_id):
+    connection = get_flask_database_connection(app)
+    repository = BookingRepository(connection)
+    booking_requested = repository.find(booking_id)
+    return render_template('booking_requested.html', booking_requested = booking_requested)
+
 
 @app.route('/user_dashboard', methods=['GET'])
 @login_required
