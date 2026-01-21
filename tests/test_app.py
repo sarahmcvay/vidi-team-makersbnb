@@ -1,32 +1,58 @@
 # from playwright.sync_api import Page, expect
 
-# # Tests for your routes go here
 
-# """
-# We can render the index page
-# """
-# def test_get_index(page, test_web_address):
-#     # We load a virtual browser and navigate to the /index page
-#     page.goto(f"http://{test_web_address}/index")
+"""
+We can get the browsing page to load
+"""
+def test_get_spaces_browsing_page(page, test_web_address):
+    page.goto(f'http://{test_web_address}/login')
 
-#     # We look at the <p> tag
-#     p_tag = page.locator(".navbar")
+    page.fill('input[name="name"]', 'test1')
+    page.fill('input[name="email"]', 'test1@email.com')
+    page.fill('input[name="password"]', 'test1password')
 
-#     # We assert that it has the text "This is the homepage."
-#     expect(p_tag).to_contain_text
-
-# """
-# We can get the browsing page to load
-# """
-# def test_get_spaces_browsing_page(page, test_web_address):
-#     page.goto(f'http://{test_web_address}/browsing_spaces')
+    page.click('button[type="login"]')
+    page.goto(f'http://{test_web_address}/browsing_spaces')
 
 #     p_tag = page.locator("h1")
 #     expect(p_tag).to_have_text("List of Spaces")
     
-# def test_show_space(page, test_web_address):
-#     page.goto(f'http://{test_web_address}/show_space/1')
+def test_show_space(page, test_web_address):
+    page.goto(f'http://{test_web_address}/login')
+
+    page.fill('input[name="name"]', 'test1')
+    page.fill('input[name="email"]', 'test1@email.com')
+    page.fill('input[name="password"]', 'test1password')
+
+    page.click('button[type="login"]')
+    page.goto(f'http://{test_web_address}/show_space/1')
     
-#     p_tag = page.locator("h1")
+    h1_tag = page.get_by_role("heading", level=1)
+    expect(h1_tag).to_have_text([
+        "space1", 
+        "Request a booking:"
+    ])
+
+
+"""
+We can get the user_dashboard page to load
+"""
+
+def test_get_dashboard_page_to_load(page, test_web_address):
+    page.goto(f'http://{test_web_address}/login')
+
+    page.fill('input[name="name"]', 'test1')
+    page.fill('input[name="email"]', 'test1@email.com')
+    page.fill('input[name="password"]', 'test1password')
+
+    page.click('button[type="login"]')
+
+    page.goto(f'http://{test_web_address}/user_dashboard')
     
-#     expect(p_tag).to_have_text('space1')
+    h2_tag = page.locator("h2")
+    expect(h2_tag).to_have_text([
+        "Your Approval Required", 
+        "Your Upcoming Bookings", 
+        "Your Owned Spaces"
+    ])
+

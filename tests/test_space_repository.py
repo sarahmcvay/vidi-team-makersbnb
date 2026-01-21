@@ -24,3 +24,14 @@ def test_create_space(db_connection):
         Space(3, 'space3', 30.00, 'fun house', 'http789', 3),
         Space(4, 'space4', 40.00, 'cool house', 'http668', 4)
     ]
+
+def test_get_spaces_by_user_id(db_connection):
+    db_connection.seed("seeds/makersbnb.sql")
+    repository = SpaceRepository(db_connection)
+    user_id = 1 
+    result = repository.get_spaces_by_user_id(user_id)
+    assert result == [
+        Space(1, 'space1', 10.00, 'great house', 'http123', 1)
+    ]
+
+
