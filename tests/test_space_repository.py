@@ -31,3 +31,14 @@ def test_get_space_id_by_user_id(db_connection):
     repository.create(Space(None,'space4', 40.00, 'cool house', 'http668', 1))
     space_id = repository.get_space_id_by_user_id(1)
     assert space_id == [1, 4]
+    
+def test_get_spaces_by_user_id(db_connection):
+    db_connection.seed("seeds/makersbnb.sql")
+    repository = SpaceRepository(db_connection)
+    user_id = 1 
+    result = repository.get_spaces_by_user_id(user_id)
+    assert result == [
+        Space(1, 'space1', 10.00, 'great house', 'http123', 1)
+    ]
+
+
