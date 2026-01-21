@@ -45,3 +45,11 @@ def test_create_new_user(db_connection):
         User(3, 'test3', 'test3@email.com', 'test3password'),
         User(4, 'test4', 'test4@email.com', 'test4password'),
     ]
+
+def test_login(db_connection):
+    db_connection.seed("seeds/makersbnb.sql")
+    repository = UserRepository(db_connection)
+
+    user = repository.login('test2')
+
+    assert user == User(2, 'test2', 'test2@email.com', 'test2password')

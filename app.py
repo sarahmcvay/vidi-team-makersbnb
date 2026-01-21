@@ -34,7 +34,7 @@ def login_submit():
 
     connection = get_flask_database_connection(app)
     repository = UserRepository(connection)
-    user = repository.find(name)
+    user = repository.login(name)
 
     if user is None:
         return render_template(
@@ -71,7 +71,7 @@ def post_create_space():
     space = Space(None, name, price, details, img_link, user_id)
     repository.create(space)
     return "Space added successfully"
-  
+
 @app.route('/show_space/<int:id>', methods=['GET'])
 def show_space(id):
     connection = get_flask_database_connection(app)
