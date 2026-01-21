@@ -30,3 +30,5 @@ def test_show_space(page, test_web_address):
     p_tag = page.locator("h1")
     
     expect(p_tag).to_have_text('space1')
+
+
