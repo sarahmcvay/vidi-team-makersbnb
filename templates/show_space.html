@@ -1,35 +1,119 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>{{space.name}}</title>
-        <link rel="stylesheet" href="/static/style.css" >
-    </head>
-    <body>
-        <div class ='navbar'>
-            <a href = '/user_dashboard' class='logo'><img src 'https://icons8.com/icon/OFOIleplyyh7/airbnb' alt='logo'></a>
-            <a href = '/browsing_spaces' class='item'>Browse Spaces</a>
-            <a href ='/create_space' class='item'>Create a New Space</a>
-        </div>
+<head>
+    <title>{{ space.name }}</title>
 
-        <h1>{{space.name}}</h1>
-        <img src='{{space.img_link}}' alt='placeholder'>
-        <p>Details: {{space.details}}</p>
-        <p>£{{space.price}} per night</p>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
-        <h1>Request a booking:</h1>
-        <div class="container">
-            <form method="POST" action="/booking_requested">
-                <p class='test'>Select Start Date: </p><input name='start_date' type="date"><br>
-                <p>Select End Date: </p><input name='end_date' type="date"><br>
-                <input type="hidden" name="flag" value="pending">
-                <input type="hidden" name="user_id" value={{user_id}}>
-                <input type="hidden" name="space_id" value={{space.id}}>
-            
-                <input type="submit" value="Submit Request">
-                </form><br>
+    <style>
+        .flatpickr-day.approved {
+            background: #e0e0e0;
+            color: #999;
+            cursor: not-allowed;
+        }
 
-            <p><a href= '/browsing_spaces' class='item'>Back to Browsing</a></p>
-        </div>
+        .flatpickr-day.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
 
-    </body>
+        .message {
+            margin: 15px 0;
+            color: #856404;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="{{ space.img_link }}" alt="placeholder">
+    <p>{{ space.details }}</p>
+    <p>£{{ space.price }} per night</p>
+
+    <h1>Request a booking:</h1>
+    <div class="message" id="pendingMessage" style="display: none;">
+        A request has already been entered for these dates — approval is unlikely.
+    </div>
+
+    <form method="POST" action="/booking_requested">
+        <input id="booking_range" type="text" placeholder="Select dates"><br><br>
+
+        <input type="hidden" name="start_date" id="start_date">
+        <input type="hidden" name="end_date" id="end_date">
+        <input type="hidden" name="flag" value="pending">
+        <input type="hidden" name="user_id" value="{{ user_id }}">
+        <input type="hidden" name="space_id" value="{{ space.id }}">
+
+        <input type="submit" value="Submit Request">
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script>
+        const approvedDates = {{ approved_dates | tojson }};
+        const pendingDates = {{ pending_dates | tojson }};
+
+        function formatDate(date) {
+            return date.toISOString().split("T")[0];
+        }
+
+        let lastSelectedRangeHasPending = false;
+
+        flatpickr("#booking_range", {
+            mode: "range",
+            dateFormat: "Y-m-d",
+            minDate: "today",
+            disable: approvedDates,
+
+            onDayCreate(_, __, ___, dayElem) {
+                const dateStr = formatDate(dayElem.dateObj);
+
+                if (approvedDates.includes(dateStr)) {
+                    dayElem.classList.add("approved");
+                }
+
+                if (pendingDates.includes(dateStr)) {
+                    dayElem.classList.add("pending");
+                }
+            },
+
+            onChange(selectedDates, _, instance) {
+                document.getElementById('pendingMessage').style.display = "none";
+                lastSelectedRangeHasPending = false;
+
+                if (selectedDates.length === 2) {
+                    const [start, end] = selectedDates;
+                    let current = new Date(start);
+
+                    while (current <= end) {
+                        const d = formatDate(current);
+
+                        // Check approved first — these are already disabled
+                        if (approvedDates.includes(d)) {
+                            instance.clear();
+                            alert("Approved dates are blocked — please choose another range.");
+                            return;
+                        }
+
+                        // If pending, note it
+                        if (pendingDates.includes(d)) {
+                            lastSelectedRangeHasPending = true;
+                        }
+                        current.setDate(current.getDate() + 1);
+                    }
+
+                    // Show pending warning if needed
+                    if (lastSelectedRangeHasPending) {
+                        document.getElementById('pendingMessage').style.display = "block";
+                    }
+
+                    // Fill hidden inputs for form submission
+                    document.getElementById("start_date").value = formatDate(start);
+                    document.getElementById("end_date").value = formatDate(end);
+                }
+            }
+        });
+    </script>
+</body>
 </html>

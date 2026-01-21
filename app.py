@@ -8,7 +8,7 @@ from lib.booking_repository import BookingRepository
 from flask import Flask, request, render_template, session, redirect, url_for
 from lib.database_connection import get_flask_database_connection
 from functools import wraps 
-
+from lib.availability import unavailable_dates, unavailable_dates_for_space, month_calendar, calendar_dates_by_status
 
 
 app = Flask(__name__)
@@ -78,9 +78,22 @@ def post_create_space():
 def show_space(id):
     user_id = session.get('user_id')
     connection = get_flask_database_connection(app)
-    repository = SpaceRepository(connection)
-    space = repository.find(id)
-    return render_template('show_space.html', space=space, user_id = user_id)
+
+    space_repo = SpaceRepository(connection)
+    space = space_repo.find(id)
+
+    booking_repo = BookingRepository(connection)
+    bookings = booking_repo.all()
+
+    approved_dates, pending_dates = calendar_dates_by_status(bookings, id)
+
+    return render_template(
+        'show_space.html',
+        space=space,
+        user_id=user_id,
+        approved_dates=approved_dates,
+        pending_dates=pending_dates
+    )
 
 @app.route('/browsing_spaces', methods=['GET'])
 @login_required
@@ -103,6 +116,9 @@ def create_booking_request():
     repository = BookingRepository(connection)
     booking = Booking(None, start_date, end_date, flag, user_id, space_id)
     requested_booking = repository.create(booking)
+    bookings = repository.all()
+    blocked = unavailable_dates_for_space(bookings, space_id=1)
+    calendar = month_calendar(2026, 1, blocked)
     return redirect(f"/booking_requested/{requested_booking.id}")
 
 @app.route('/booking_requested/<int:booking_id>', methods=['GET'])
@@ -124,6 +140,8 @@ def get_user_dashboard():
     repository = SpaceRepository(connection)
     spaces = repository.get_spaces_by_user_id(user_id)
     return render_template('user_dashboard.html', spaces=spaces)
+
+
 
 
 if __name__ == '__main__':

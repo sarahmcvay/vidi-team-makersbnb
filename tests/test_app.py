@@ -14,8 +14,6 @@ def test_get_spaces_browsing_page(page, test_web_address):
     page.click('button[type="login"]')
     page.goto(f'http://{test_web_address}/browsing_spaces')
 
-#     p_tag = page.locator("h1")
-#     expect(p_tag).to_have_text("List of Spaces")
     
 def test_show_space(page, test_web_address):
     page.goto(f'http://{test_web_address}/login')
@@ -28,10 +26,7 @@ def test_show_space(page, test_web_address):
     page.goto(f'http://{test_web_address}/show_space/1')
     
     h1_tag = page.get_by_role("heading", level=1)
-    expect(h1_tag).to_have_text([
-        "space1", 
-        "Request a booking:"
-    ])
+    expect(h1_tag).to_have_text("Request a booking:")
 
 
 """
