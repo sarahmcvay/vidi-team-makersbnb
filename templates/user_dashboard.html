@@ -13,47 +13,57 @@
         </form>
       </div>
       <div class='row'>
-        <div class='dashboard_container'>
-            <div class='approvals'>
-              <h2>Your Approval Required</h2>
-              {%for booking in bookings%}
-              <li>
-                <p>start date: {{booking.start_date}}</p><br>
-                <p>end date: {{booking.end_date}}</p><br>
-                <p>status: {{booking.flag}}</p>
-              </li>
-              {% endfor %}
-              </ul>
-            </div>
-        </div>
-        <div class='dashboard_container'>
-            <div class='bookings'>
-              <h2>Your Upcoming Bookings</h2>
-              <ul>
-              {%for booking in bookings%}
-              <li>
-                <p>start date: {{booking.start_date}}</p><br>
-                <p>end date: {{booking.end_date}}</p><br>
-                <p>status: {{booking.flag}}</p>
-              </li>
-              {% endfor %}
-              </ul>
-            </div>
-        </div>
-        <div class='dashboard_container'>
-            <div class='space'>
-              <h2>Your Owned Spaces</h2>
-                {% for space in spaces %}
-                  <a class = 'space_box' href = '/show_space/{{space.id}}'>
-                  <div class = 'space'>
-                  <img src='{{space.img_link}}' alt='placeholder'>
-                  <p>{{space.name}}</p>
-                  <p>{{space.details}}</p>
-                  <p>{{space.price}}</p>
-                  </div>
-                  </a>
+        <div class='column'>
+          <div class='dashboard_container'>
+              <div class='approvals'>
+                <h2>Your Approval Required</h2>
+                <!-- This block will need to be corrected once approval function complete -->
+                {%for approval in approvals%}
+                <li>
+                  <p>start date: {{booking.start_date}}</p><br>
+                  <p>end date: {{booking.end_date}}</p><br>
+                  <p>status: {{booking.flag}}</p>
+                </li>
                 {% endfor %}
-            </div>
+                <!-- Up to here -->
+                </ul>
+              </div>
+          </div>      
+        </div>
+        <div class='column'>
+          <div class='dashboard_container'>
+              <div class='bookings'>
+                <h2>Your Upcoming Bookings</h2>
+                <ul>
+                {%for booking in bookings%}
+                <li>
+                  <p>start date: {{booking.start_date}}</p><br>
+                  <p>end date: {{booking.end_date}}</p><br>
+                  <p>status: {{booking.flag}}</p>
+                </li>
+                {% endfor %}
+                </ul>
+              </div>
+          </div>
+        </div>
+        <div class='column'>
+          <div class='dashboard_container'>
+              <div class='space'>
+                <h2>Your Owned Spaces</h2>
+                  {% for space in spaces %}
+                    <div class='space_box_dashboard'>
+                      <a class = 'space_box' href = '/show_space/{{space.id}}'>
+                      <div class = 'space'>
+                      <img src='{{space.img_link}}' alt='placeholder'>
+                      <p>{{space.name}}</p>
+                      <p>{{space.details}}</p>
+                      <p>{{space.price}}</p>
+                      </div>
+                      </a>
+                    </div>
+                  {% endfor %}
+              </div>
+          </div>
         </div>
       </div>    
     </body>
