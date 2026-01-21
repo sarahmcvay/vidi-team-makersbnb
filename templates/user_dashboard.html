@@ -16,6 +16,7 @@
         <div class='column'>
           <div class='dashboard_container'>
               <div class='approvals'>
+                {{spaces}}
                 <h2>Your Approval Required</h2>
                 <!-- This block will need to be corrected once approval function complete -->
                 {%for approval in approvals%}
@@ -35,7 +36,7 @@
               <div class='bookings'>
                 <h2>Your Upcoming Bookings</h2>
                 <ul>
-                {%for booking in bookings%}
+                {%for booking in booking_requested%}
                 <li>
                   <p>start date: {{booking.start_date}}</p><br>
                   <p>end date: {{booking.end_date}}</p><br>

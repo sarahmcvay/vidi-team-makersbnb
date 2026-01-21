@@ -44,4 +44,12 @@ class SpaceRepository:
             spaces.append(item)
         return spaces
 
-        
+    def get_space_id_by_user_id(self, user_id):
+        rows = self._connection.execute(
+            'SELECT id FROM spaces WHERE user_id = %s',
+            [user_id]
+        )
+        space_ids = [] 
+        for row in rows:
+            space_ids.append(row["id"])
+        return space_ids
