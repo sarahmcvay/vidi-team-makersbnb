@@ -10,8 +10,6 @@ class BookingRepository:
         )
         bookings = []
         for row in rows:
-            # print(type(row["start_date"]))
-
             item = Booking(
                 row["id"],
                 row["start_date"],
@@ -39,7 +37,11 @@ class BookingRepository:
         )
 
     def create(self, booking):
-        self._connection.execute(
-            'INSERT INTO bookings (start_date, end_date, flag, user_id, space_id) VALUES (%s, %s, %s, %s, %s)', [booking.start_date, booking.end_date, booking.flag, booking.user_id, booking.space_id]
+        rows = self._connection.execute(
+            'INSERT INTO bookings (start_date, end_date, flag, user_id, space_id) VALUES (%s, %s, %s, %s, %s) RETURNING id', [booking.start_date, booking.end_date, booking.flag, booking.user_id, booking.space_id]
         )
-        return None
+        row = rows[0]
+        booking.id = row["id"]
+        return booking
+    
+    #date values returned as a string not date objects

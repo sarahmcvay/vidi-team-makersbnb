@@ -9,7 +9,7 @@ CREATE SEQUENCE IF NOT EXISTS users_id_seq;
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
-    email VARCHAR(255),
+    email VARCHAR(255) UNIQUE,
     password VARCHAR(255)
 );
 
@@ -45,8 +45,7 @@ INSERT INTO spaces (name, price, details, img_link, user_id) VALUES
     ('space3', 30.00, 'fun house', 'http789', 3);
 
 INSERT INTO bookings (start_date, end_date, flag, user_id, space_id) VALUES
-    ('2026-02-10', '2026-02-11', 'flag1', 1, 2),
-    ('2026-03-15', '2026-03-17', 'flag2', 2, 1),
-    ('2026-01-24', '2026-01-26', 'flag3', 3, 3);
+    ('2026-02-10', '2026-02-11', 'pending', 1, 2),
+    ('2026-03-15', '2026-03-17', 'rejected', 2, 1),
+    ('2026-01-24', '2026-01-26', 'accepted', 3, 3);
 -- The booking table is seperate from the space, it is pending, approved or rejected.
-

@@ -3,6 +3,8 @@ from lib.space import Space
 from lib.space_repository import SpaceRepository
 from lib.user import User
 from lib.user_repository import UserRepository
+from lib.booking import Booking
+from lib.booking_repository import BookingRepository
 from flask import Flask, request, render_template, session, redirect, url_for
 from lib.database_connection import get_flask_database_connection
 from functools import wraps 
@@ -74,15 +76,11 @@ def post_create_space():
 
 @app.route('/show_space/<int:id>', methods=['GET'])
 def show_space(id):
+    user_id = session.get('user_id')
     connection = get_flask_database_connection(app)
     repository = SpaceRepository(connection)
     space = repository.find(id)
-    return render_template('show_space.html', space=space)
-
-@app.route('/create_booking', methods=['GET'])
-@login_required
-def get_create_booking():
-    return render_template('create_booking.html')
+    return render_template('show_space.html', space=space, user_id = user_id)
 
 @app.route('/browsing_spaces', methods=['GET'])
 @login_required
@@ -91,6 +89,27 @@ def get_spaces_browsing_page():
     repository = SpaceRepository(connection)
     spaces = repository.all() 
     return render_template('browsing_spaces.html', spaces = spaces)
+
+@app.route('/booking_requested', methods=['POST'])
+@login_required
+def create_booking_request():
+    start_date = request.form["start_date"]
+    end_date = request.form["end_date"]
+    flag = request.form["flag"] 
+    user_id = request.form["user_id"]
+    space_id = request.form["space_id"]
+
+    connection = get_flask_database_connection(app)
+    repository = BookingRepository(connection)
+    booking = Booking(None, start_date, end_date, flag, user_id, space_id)
+    requested_booking = repository.create(booking)
+    return render_template('booking_requested.html', requested_booking = requested_booking)
+
+@app.route('/booking_requested', methods=['GET'])
+@login_required
+def get_booking_requested_page():
+    return render_template('booking_requested.html')
+#Add params from booking request id, to url and run find on booking repo
 
 @app.route('/user_dashboard', methods=['GET'])
 @login_required
