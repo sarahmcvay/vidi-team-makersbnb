@@ -10,7 +10,15 @@
             <a href = '/browsing_spaces' class='item'>Browse Spaces</a>
             <a href ='/create_space' class='item'>Create a New Space</a>
         </div>
-        {{booking_requested}}
-
+        <h1>Thank you for requesting {{space_requested.name}}!</h1>
+        <div>
+        <img src='{{space_requested.img_link}}' alt='placeholder'>
+        <p>Details: {{space_requested.details}}</p>
+        <p>Requested From: {{booking_requested.start_date}}</p>
+        <p>Requested Until: {{booking_requested.end_date}}</p>
+        <p>Please wait for conformation</p>
+        <a href = '/user_dashboard'>To dashboard</a>
+        <a href = '/browsing_spaces'>Back to Browsing</a>
+        </div>
     </body>
 </html>

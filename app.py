@@ -109,9 +109,11 @@ def create_booking_request():
 @login_required
 def get_booking_requested_page(booking_id):
     connection = get_flask_database_connection(app)
-    repository = BookingRepository(connection)
-    booking_requested = repository.find(booking_id)
-    return render_template('booking_requested.html', booking_requested = booking_requested)
+    booking_repository = BookingRepository(connection)
+    booking_requested = booking_repository.find(booking_id)
+    space_repository = SpaceRepository(connection)
+    space_requested = space_repository.find(booking_requested.space_id)
+    return render_template('booking_requested.html', booking_requested = booking_requested, space_requested = space_requested)
 
 
 @app.route('/user_dashboard', methods=['GET'])
