@@ -10,30 +10,54 @@
         <a href = '/create_space' class='item'>Create a New Space</a>
         <form action="{{ url_for('logout') }}" method="POST">
         <button type="submit">Log Out</button>
-</form>
+        </form>
       </div>
-      <div class='bookings'>
-        <ul>
-        {%for booking in bookings%}
-        <li>
-          <p>start date: {{booking.start_date}}</p><br>
-          <p>end date: {{booking.end_date}}</p><br>
-          <p>status: {{booking.flag}}</p>
-        </li>
-        {% endfor %}
-        </ul>
-      </div>
-      <div class='spaces'>
-        <ul>
-        {%for space in spaces%}
-        <li>
-          <img src= '{{space.img_link}}' alt='space image'>
-          <p>Space Name: {{space.name}}</p><br>
-          <p>Price: {{space.price}}</p><br>
-          <p>details: {{space.details}}
-        </li>
-        {% endfor %}
-        </ul>
-      </div>
+      <div class='row'>
+        <div class='dashboard_container'>
+            <div class='approvals'>
+              <h2>Your Approval Required</h2>
+              {%for booking in bookings%}
+              <li>
+                <p>start date: {{booking.start_date}}</p><br>
+                <p>end date: {{booking.end_date}}</p><br>
+                <p>status: {{booking.flag}}</p>
+              </li>
+              {% endfor %}
+              </ul>
+            </div>
+        </div>
+        <div class='dashboard_container'>
+            <div class='bookings'>
+              <h2>Your Upcoming Bookings</h2>
+              <ul>
+              {%for booking in bookings%}
+              <li>
+                <p>start date: {{booking.start_date}}</p><br>
+                <p>end date: {{booking.end_date}}</p><br>
+                <p>status: {{booking.flag}}</p>
+              </li>
+              {% endfor %}
+              </ul>
+            </div>
+        </div>
+        <div class='dashboard_container'>
+            <div class='space'>
+              <h2>Your Owned Spaces</h2>
+                {% for space in spaces %}
+                  <a class = 'space_box' href = '/show_space/{{space.id}}'>
+                  <div class = 'space'>
+                  <img src='{{space.img_link}}' alt='placeholder'>
+                  <p>{{space.name}}</p>
+                  <p>{{space.details}}</p>
+                  <p>{{space.price}}</p>
+                  </div>
+                  </a>
+                {% endfor %}
+            </div>
+        </div>
+      </div>    
     </body>
 </html>
+
+
+

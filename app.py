@@ -95,7 +95,11 @@ def get_spaces_browsing_page():
 @app.route('/user_dashboard', methods=['GET'])
 @login_required
 def get_user_dashboard():
-    return render_template('user_dashboard.html')
+    user_id = session.get('user_id')
+    connection = get_flask_database_connection(app)
+    repository = SpaceRepository(connection)
+    spaces = repository.get_spaces_by_user_id(user_id)
+    return render_template('user_dashboard.html', spaces=spaces)
 
 
 if __name__ == '__main__':
