@@ -132,7 +132,7 @@ def get_user_dashboard():
 
     pending_bookings = booking_repository.get_pending_bookings_by_space_id(bookable_spaces)
 
-    return render_template('user_dashboard.html', booking_requested = booking_requested, spaces=spaces)
+    return render_template('user_dashboard.html', pending_bookings = pending_bookings, booking_requested = booking_requested, spaces=spaces)
 
 
 
