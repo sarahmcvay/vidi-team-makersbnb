@@ -16,13 +16,13 @@
         <div class='column'>
           <div class='dashboard_container'>
               <div class='approvals'>
-                <h2>Your Approval Required</h2>
+                <h2>Spaces you own that require approval</h2>
                 <!-- This block will need to be corrected once approval function complete -->
-                {%for approval in approvals%}
+                {%for pending in pending_bookings%}
                 <li>
-                  <p>start date: {{booking.start_date}}</p><br>
-                  <p>end date: {{booking.end_date}}</p><br>
-                  <p>status: {{booking.flag}}</p>
+                  <p>start date: {{pending.start_date}}</p><br>
+                  <p>end date: {{pending.end_date}}</p><br>
+                  <p>status: {{pending.flag}}</p>
                 </li>
                 {% endfor %}
                 <!-- Up to here -->
@@ -33,9 +33,9 @@
         <div class='column'>
           <div class='dashboard_container'>
               <div class='bookings'>
-                <h2>Your Upcoming Bookings</h2>
+                <h2>Spaces you are visiting soon</h2>
                 <ul>
-                {%for booking in bookings%}
+                {%for booking in booking_requested%}
                 <li>
                   <p>start date: {{booking.start_date}}</p><br>
                   <p>end date: {{booking.end_date}}</p><br>

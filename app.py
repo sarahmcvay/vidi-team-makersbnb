@@ -121,9 +121,20 @@ def get_booking_requested_page(booking_id):
 def get_user_dashboard():
     user_id = session.get('user_id')
     connection = get_flask_database_connection(app)
-    repository = SpaceRepository(connection)
-    spaces = repository.get_spaces_by_user_id(user_id)
-    return render_template('user_dashboard.html', spaces=spaces)
+    space_repository = SpaceRepository(connection)
+    spaces = space_repository.get_spaces_by_user_id(user_id)
+
+    booking_repository = BookingRepository(connection)
+    booking_requested = booking_repository.get_bookings_by_guest_user_id(user_id)
+
+    bookable_spaces = space_repository.get_space_id_by_user_id(user_id)
+# bookable spaces is a list of numbers which are space ids
+
+    pending_bookings = booking_repository.get_pending_bookings_by_space_id(bookable_spaces)
+
+    return render_template('user_dashboard.html', pending_bookings = pending_bookings, booking_requested = booking_requested, spaces=spaces)
+
+
 
 
 if __name__ == '__main__':

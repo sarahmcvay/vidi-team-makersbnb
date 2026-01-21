@@ -47,3 +47,21 @@ def test_create_new_booking(db_connection):
         Booking(3, date(2026, 1, 24), date(2026, 1, 26), 'accepted', 3, 3),
         Booking(4, date(2026, 4, 12), date(2026, 4, 14), 'pending', 4, 3),
     ]
+
+"""
+when we pass in a list of space ids
+we return the list of those space bookings with pending flag 
+"""
+def test_get_pending_bookings_by_space_id(db_connection):
+    db_connection.seed("seeds/makersbnb.sql")
+    repository = BookingRepository(db_connection)
+
+    test_space_ids =[2]
+    pending_bookings = repository.get_pending_bookings_by_space_id(test_space_ids)
+    assert pending_bookings == [Booking(1, date(2026, 2, 10), date(2026, 2, 11), 'pending', 1, 2)]
+
+    repository.create(Booking(None, '2026-04-12', '2026-04-14', 'pending', 4, 3))
+
+    test_space_ids =[1, 2, 3]
+    pending_bookings = repository.get_pending_bookings_by_space_id(test_space_ids)
+    assert pending_bookings == [Booking(1, date(2026, 2, 10), date(2026, 2, 11), 'pending', 1, 2), Booking(4, date(2026, 4, 12), date(2026, 4, 14), 'pending', 4, 3)]
