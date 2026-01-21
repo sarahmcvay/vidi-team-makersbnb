@@ -28,11 +28,18 @@ img{
   }
 }
 
+.approvals{
+  background-color: lightgray;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 5px;
+}
+
 .bookings{
   background-color: lightgray;
   border-radius: 10px;
   padding: 10px;
-  margin-top: 75px;
+  margin-top: 5px;
 }
 
 .space{
@@ -44,4 +51,11 @@ img{
 
 .space_box{
   text-decoration: none;
+}
+
+.dashboard_container{
+  border-radius: 10px;
+  border: 1px solid rgb(000, 000, 000);
+  padding: 10px;
+  margin: 10px;
 }
