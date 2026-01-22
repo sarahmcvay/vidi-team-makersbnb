@@ -139,7 +139,7 @@ def post_flag_update():
     flag_update = request.form['flag']
     print('hello', flag_update)
     if flag_update == 'Accept':
-        flag_update = 'accepeted'
+        flag_update = 'accepted'
     if flag_update == 'Reject':
         flag_update = 'rejected'
     booking_repository = BookingRepository(connection)
@@ -157,6 +157,7 @@ def get_user_dashboard():
 
     booking_repository = BookingRepository(connection)
     booking_requested = booking_repository.get_bookings_by_guest_user_id(user_id)
+
 
     bookable_spaces = space_repository.get_space_id_by_user_id(user_id)
 # bookable spaces is a list of numbers which are space ids
