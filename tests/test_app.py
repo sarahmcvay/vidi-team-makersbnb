@@ -7,7 +7,6 @@ We can get the browsing page to load
 def test_get_spaces_browsing_page(page, test_web_address):
     page.goto(f'http://{test_web_address}/login')
 
-    page.fill('input[name="name"]', 'test1')
     page.fill('input[name="email"]', 'test1@email.com')
     page.fill('input[name="password"]', 'test1password')
 
@@ -20,7 +19,6 @@ We can get the space 1 page to load
 def test_show_space(page, test_web_address):
     page.goto(f'http://{test_web_address}/login')
 
-    page.fill('input[name="name"]', 'test1')
     page.fill('input[name="email"]', 'test1@email.com')
     page.fill('input[name="password"]', 'test1password')
 
@@ -36,7 +34,6 @@ We can get the booking calendar to render
 def test_booking_calendar_renders(page, test_web_address):
     page.goto(f'http://{test_web_address}/login')
 
-    page.fill('input[name="name"]', 'test1')
     page.fill('input[name="email"]', 'test1@email.com')
     page.fill('input[name="password"]', 'test1password')
     page.click('button[type="login"]')
@@ -56,7 +53,6 @@ def test_pending_date_shows_warning(page, test_web_address):
             window.approvedDates = [];
         """)
         page.goto(f'http://{test_web_address}/login')
-        page.fill('input[name="name"]', 'test1')
         page.fill('input[name="email"]', 'test1@email.com')
         page.fill('input[name="password"]', 'test1password')
         page.click('button[type="login"]')
@@ -75,7 +71,6 @@ We can create a space
 """
 def test_post_create_space_submits_successfully(page, test_web_address):
     page.goto(f'http://{test_web_address}/login')
-    page.fill('input[name="name"]', 'test1')
     page.fill('input[name="email"]', 'test1@email.com')
     page.fill('input[name="password"]', 'test1password')
     page.click('button[type="login"]')
@@ -96,7 +91,6 @@ We can get the user_dashboard page to load
 def test_get_dashboard_page_to_load(page, test_web_address):
     page.goto(f'http://{test_web_address}/login')
 
-    page.fill('input[name="name"]', 'test1')
     page.fill('input[name="email"]', 'test1@email.com')
     page.fill('input[name="password"]', 'test1password')
 
