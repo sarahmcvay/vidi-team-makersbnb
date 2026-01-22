@@ -106,8 +106,8 @@ def test_get_dashboard_page_to_load(page, test_web_address):
     
     h2_tag = page.locator("h2")
     expect(h2_tag).to_have_text([
-        "Your Approval Required", 
-        "Your Upcoming Bookings", 
+        "Spaces you own that require approval", 
+        "Spaces you are visiting soon", 
         "Your Owned Spaces"
     ])
 

@@ -84,4 +84,7 @@ class BookingRepository:
                 )
                 pending_bookings.append(item)
         return pending_bookings
-    # now lists every pending booking under space_id
+      # now lists every pending booking under space_id
+      
+    def update_flag(self, booking_id, new_flag):
+        self._connection.execute('UPDATE bookings SET flag = %s WHERE id = %s', (new_flag, booking_id))

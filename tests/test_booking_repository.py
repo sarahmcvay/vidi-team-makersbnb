@@ -65,3 +65,10 @@ def test_get_pending_bookings_by_space_id(db_connection):
     test_space_ids =[1, 2, 3]
     pending_bookings = repository.get_pending_bookings_by_space_id(test_space_ids)
     assert pending_bookings == [Booking(1, date(2026, 2, 10), date(2026, 2, 11), 'pending', 1, 2), Booking(4, date(2026, 4, 12), date(2026, 4, 14), 'pending', 4, 3)]
+    
+def test_update_flag(db_connection):
+    db_connection.seed("seeds/makersbnb.sql")
+    repository = BookingRepository(db_connection)
+    repository.update_flag(1, 'accepted')
+    value = repository.find(1)
+    assert value == Booking(1, date(2026, 2, 10), date(2026, 2, 11), 'accepted', 1, 2)
