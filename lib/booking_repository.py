@@ -88,3 +88,11 @@ class BookingRepository:
       
     def update_flag(self, booking_id, new_flag):
         self._connection.execute('UPDATE bookings SET flag = %s WHERE id = %s', (new_flag, booking_id))
+
+    def delete_pending_for_space(self, space_id, exclude_id=None):
+        sql = "DELETE FROM bookings WHERE space_id = %s AND flag = 'pending'"
+        params = [space_id]
+        if exclude_id:
+            sql += " AND id != %s"
+            params.append(exclude_id)
+        self._connection.execute(sql, params)

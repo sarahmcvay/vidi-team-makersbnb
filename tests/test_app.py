@@ -69,19 +69,34 @@ def test_pending_date_shows_warning(page, test_web_address):
 """
 We can create a space
 """
+
 def test_post_create_space_submits_successfully(page, test_web_address):
+
     page.goto(f'http://{test_web_address}/login')
     page.fill('input[name="email"]', 'test1@email.com')
     page.fill('input[name="password"]', 'test1password')
     page.click('button[type="login"]')
-    
+
+
     page.goto(f'http://{test_web_address}/create_space')
+
+
     page.fill('input[name="name"]', 'Test Space')
-    page.fill('input[name="details"]', 'A cozy test space.')
+    page.fill('textarea[name="details"]', 'A cozy test space.')
     page.fill('input[name="price"]', '100')
     page.fill('input[name="img_link"]', 'https://example.com/image.jpg')
-    page.click('input[type="submit"]')
-    expect(page.locator('body')).to_have_text('Space added successfully')
+
+    page.click('button[type="submit"]')
+
+    page.wait_for_selector("h2")
+
+    space = page.locator("p", has_text="Test Space").last
+    parent = space.locator("xpath=..")
+
+    expect(parent).to_contain_text("Test Space")
+    expect(parent).to_contain_text("A cozy test space.")
+    expect(parent).to_contain_text("100.00")
+
 
 
 """

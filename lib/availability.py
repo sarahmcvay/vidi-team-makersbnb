@@ -36,7 +36,7 @@ def calendar_dates_by_status(bookings, space_id):
             continue
 
         for d in booking_dates(booking):
-            if booking.flag == "approved":
+            if booking.flag == "accepted":
                 approved.append(d.isoformat())
             elif booking.flag == "pending":
                 pending.append(d.isoformat())
