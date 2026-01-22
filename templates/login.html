@@ -5,14 +5,15 @@
         <link rel="stylesheet" href="/static/style.css" >
     </head>
     <body>
-        <div class = 'form'>
+        <div class = 'form' id = 'login'>
         <h1>Log in:</h1>
         <form method="POST" action="/login">
         <label for = 'email'><p>Email:</p></label>
         <input type="text" name="email" id = 'email' required/> 
         <label for = 'password'><p>Password:</p></label>
-        <input type="text" name="password" id = 'password'required/><br><br>
-        <button type="login">Log in </button>
+        <input type="password" name="password" id = 'password'required/><br><br>
+        <button type="login">Log in </button><br>
+        <a href = '/register'>No account? Register here</a>
         </form>
         </div>
     </body>

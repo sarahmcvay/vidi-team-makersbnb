@@ -10,17 +10,18 @@
             <a href = '/browsing_spaces' class='item'>Browse Spaces</a>
             <a href ='/create_space' class='item'>Create a New Space</a>
         </div>
-        <div class="container">
+        <div class="form" id ='new_space'>
+        <h2>Create a new space:</h2>
         <form method="POST" action="/create_space">
-        <p>What do you want to call your space?: <input type="text" name="name" required/> 
-        <p>How would you describe your space?: <input type="text"
-        name="details" required/> 
-        <p>How much do you want to charge per night?: <input type="float"
-        name="price" required/> 
-        <p>Would you like to add an image link?: <input type="text"
-        name="img_link" /> 
-        <!-- add ability to upload image here -->
-        <p><input type="submit" value="Submit"> </p>
+        <label for= 'name'><p>What do you want to call your space?:</p></label>
+        <input type="text" name="name" id = 'name' required/> 
+        <label for= 'details'><p>How would you describe your space?:</p></label>
+        <textarea type="text" name="details" id = 'details' rows="4" cols="50" required/></textarea>
+        <labe for= 'price'><p>How much do you want to charge per night?:</p></labe>
+        <input type="float" name="price" id= 'price' required/> 
+        <label for= 'img_link'><p>Would you like to add an image link?:</p>
+        <input type="text" name="img_link" id= 'img_link' />
+        <button type="submit" class = 'new_space_button'><p>Submit</p></button>
         </form>
         </div>
     </body>
