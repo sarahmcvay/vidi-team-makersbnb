@@ -1,4 +1,6 @@
 from lib.user import User
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 class UserRepository:
     def __init__(self, conection):
@@ -19,14 +21,16 @@ class UserRepository:
         return User(row["id"], row["name"], row["email"], row["password"])
     
     def create(self, user):
+        hashed_password = generate_password_hash(user.password)
         rows = self._connection.execute('INSERT INTO users (name, email, password) VALUES (%s, %s, %s) RETURNING id', [
-            user.name, user.email, user.password])
+		    user.name, user.email, hashed_password])
         row = rows[0]
         user.id = row["id"]
         return user
     
-    def login(self, name):
+    def login(self, email, submitted_password):
         rows = self._connection.execute(
-            'SELECT * FROM users WHERE name = %s', [name])
+		    'SELECT * FROM users WHERE email = %s', [email])
         row = rows[0]
-        return User(row["id"], row["name"], row["email"], row["password"])
+        if check_password_hash(row["password"], submitted_password): 
+            return User(row["id"], row["name"], row["email"], row["password"])
