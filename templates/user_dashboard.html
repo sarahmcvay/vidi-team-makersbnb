@@ -23,6 +23,11 @@
                 <li>
                   <p>From: {{pending.start_date}} Until: {{pending.end_date}}</p>
                   <p>Status: {{pending.flag.title()}}</p>
+                  <form method='POST' action = '/user_dashboard'>
+                    <input type = 'hidden' name = 'booking_id' value = {{pending.id}}></input>
+                    <input type='submit' name = 'flag' value = 'Accept'></input>
+                    <input type='submit' name = 'flag' value = 'Reject'></input>
+                  </form>
                   <br>
                 </li>
                 {% endfor %}
