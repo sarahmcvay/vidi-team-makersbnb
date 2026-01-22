@@ -131,20 +131,22 @@ def get_booking_requested_page(booking_id):
     space_requested = space_repository.find(booking_requested.space_id)
     return render_template('booking_requested.html', booking_requested = booking_requested, space_requested = space_requested)
 
-@app.route('/user_dashboard', methods = ['POST'])
+@app.route('/user_dashboard', methods=['POST'])
 @login_required
 def post_flag_update():
-    user_id = session.get('user_id')
-    connection = get_flask_database_connection(app)
     booking_id = request.form['booking_id']
-    flag_update = request.form['flag']
-    print('hello', flag_update)
-    if flag_update == 'Accept':
-        flag_update = 'accepeted'
-    if flag_update == 'Reject':
-        flag_update = 'rejected'
-    booking_repository = BookingRepository(connection)
-    booking_repository.update_flag(booking_id, flag_update)
+    action = request.form['flag'] 
+
+    connection = get_flask_database_connection(app)
+    repository = BookingRepository(connection)
+
+    if action == 'Accept':
+        repository.update_flag(booking_id, 'accepted')  
+        booking = repository.find(booking_id)
+        repository.delete_pending_for_space(booking.space_id, exclude_id=booking_id)
+    elif action == 'Reject':
+        repository.update_flag(booking_id, 'rejected')
+
     return redirect('/user_dashboard')
 
 
