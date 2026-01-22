@@ -72,7 +72,7 @@ def post_create_space():
     repository = SpaceRepository(connection)
     space = Space(None, name, price, details, img_link, user_id)
     repository.create(space)
-    return "Space added successfully"
+    return redirect('/user_dashboard')
 
 @app.route('/show_space/<int:id>', methods=['GET'])
 def show_space(id):
