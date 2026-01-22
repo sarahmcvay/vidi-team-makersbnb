@@ -9,11 +9,16 @@ from flask import Flask, request, render_template, session, redirect, url_for
 from lib.database_connection import get_flask_database_connection
 from functools import wraps 
 from lib.availability import unavailable_dates, unavailable_dates_for_space, month_calendar, calendar_dates_by_status
+import stripe
 
+# Stripe test secret API key to go here.
 
-app = Flask(__name__)
+app = Flask(__name__,
+            static_url_path=''
+            static_folder='public')
 app.secret_key = "supersecretkey" 
 
+YOUR_DOMAIN = 'http://localhost:4242'
 
 def login_required(route):
     @wraps(route)
@@ -151,7 +156,36 @@ def get_user_dashboard():
     return render_template('user_dashboard.html', pending_bookings = pending_bookings, booking_requested = booking_requested, spaces=spaces)
 
 
+# Payments 
+# when the user (guest) clicks pay
+@app.route('/bookings/<int:booking_id>/pay_now', methods=['POST'])
+def create_checkout_session(booking_id): #start payment
+    connection = get_flask_database_connection(app)
+    booking_repository = BookingRepository(connection)
+    space_repository = SpaceRepository(connection)
 
+    booking = booking_repository.find(booking_id) #will need to add the extra columns into the booking methods
+
+    try:
+        # stripe is creating a checkout page
+        checkout_session = stripe.checkout.Session.create(
+            # what the user is paying for
+            line_items=[
+                {
+                    # Provide the exact Price ID
+                    # Require price_of_booking method in booking repository
+                    'space': '{{space_id}}',
+                    'price': '{{PRICE_ID}}',
+                    'quantity': 1,
+                },
+            ],
+            mode='payment',
+            success_url=YOUR_DOMAIN + '/success.html',
+        )
+    except Exception as e:
+        return str(e)
+
+    return redirect(checkout_session.url, code=303)
 
 
 

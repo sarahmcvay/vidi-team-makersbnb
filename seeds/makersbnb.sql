@@ -30,7 +30,9 @@ CREATE TABLE bookings (
     end_date DATE,
     flag VARCHAR(255),
     user_id INTEGER,
-    space_id INTEGER
+    space_id INTEGER,
+    payment_status VARCHAR(255),--unpaid or paid
+    stripe_session_id VARCHAR(255)
 );
 
 -- seed data
@@ -45,7 +47,7 @@ INSERT INTO spaces (name, price, details, img_link, user_id) VALUES
     ('space3', 30.00, 'fun house', 'http789', 3);
 
 INSERT INTO bookings (start_date, end_date, flag, user_id, space_id) VALUES
-    ('2026-02-10', '2026-02-11', 'pending', 1, 2),
-    ('2026-03-15', '2026-03-17', 'rejected', 2, 1),
-    ('2026-01-24', '2026-01-26', 'accepted', 3, 3);
+    ('2026-02-10', '2026-02-11', 'pending', 1, 2, unpaid, '123abc'),
+    ('2026-03-15', '2026-03-17', 'rejected', 2, 1, unpaid, '456efg'),
+    ('2026-01-24', '2026-01-26', 'accepted', 3, 3, unpaid, None);
 -- The booking table is seperate from the space, it is pending, approved or rejected.

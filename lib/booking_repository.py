@@ -85,3 +85,6 @@ class BookingRepository:
                 pending_bookings.append(item)
         return pending_bookings
     # now lists every pending booking under space_id
+
+    def price_of_booking(self, space_id):
+        pass

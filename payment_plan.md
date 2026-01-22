@@ -1,6 +1,8 @@
 ### Payment Planning  
 Considered a few suppliers, decided on Stripe
 change .gitignore stripe secret key and stripe perishable key
+make sure use Test API keys 
+Keep stripe in test mode, click developers menu and enable view test data
 
 ### Booking Flow Logic
 - User (guest) requests booking
