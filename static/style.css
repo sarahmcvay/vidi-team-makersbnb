@@ -28,6 +28,37 @@ img{
   }
 }
 
+
+.form{
+    justify-self: center;
+    padding: 100px;
+    background-color: rgb(231, 231, 231);
+    border-radius: 20px;
+    margin-top: 120px;
+    padding-block: 50px;
+    font-size: larger;
+    input{
+      margin: 5px;
+    }
+
+  }
+
+button{
+        padding: 5px;
+        background-color: rgb(255, 91, 91);
+        color: white;
+        border: solid rgb(255, 91, 91);
+        border-radius: 15px;
+        display: flex;
+        justify-self: end;
+        transition: ease 0.3s;
+    }
+    button:hover{
+        transform: scale(1.15);
+        background-color:rgb(213, 72, 72);
+        border-color: rgb(213, 72, 72);
+    }
+
 .approvals{
   background-color: rgb(231, 231, 231);
   border-radius: 10px;
