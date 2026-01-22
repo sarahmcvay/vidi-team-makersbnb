@@ -44,7 +44,25 @@ def login_submit():
         
     session['user_id'] = user.id
 
+    
     return redirect('/user_dashboard')
+
+@app.route('/register', methods = ['GET'])
+def register_form():
+    return render_template('register.html')
+  
+@app.route('/register', methods = ['POST'])
+def register_submit():
+    name = request.form['name']
+    email = request.form['email']
+    password = request.form['password']
+
+    connection = get_flask_database_connection(app)
+    repository = UserRepository(connection)
+    new_user = repository.create(User(None, name, email, password))
+    session['user_id'] = new_user.id
+    return redirect('/user_dashboard')
+
 
 @app.route('/logout', methods=['POST'])
 def logout():
