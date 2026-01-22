@@ -140,7 +140,7 @@ def post_flag_update():
     flag_update = request.form['flag']
     print('hello', flag_update)
     if flag_update == 'Accept':
-        flag_update = 'accepeted'
+        flag_update = 'accepted'
     if flag_update == 'Reject':
         flag_update = 'rejected'
     booking_repository = BookingRepository(connection)
