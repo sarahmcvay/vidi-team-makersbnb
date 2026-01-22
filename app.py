@@ -50,7 +50,7 @@ def login_submit():
         
     session['user_id'] = user.id
 
-    return render_template('user_dashboard.html')
+    return redirect('/user_dashboard')
 
 @app.route('/logout', methods=['POST'])
 def logout():
@@ -135,6 +135,22 @@ def get_booking_requested_page(booking_id):
     space_repository = SpaceRepository(connection)
     space_requested = space_repository.find(booking_requested.space_id)
     return render_template('booking_requested.html', booking_requested = booking_requested, space_requested = space_requested)
+  
+@app.route('/user_dashboard', methods = ['POST'])
+@login_required
+def post_flag_update():
+    user_id = session.get('user_id')
+    connection = get_flask_database_connection(app)
+    booking_id = request.form['booking_id']
+    flag_update = request.form['flag']
+    print('hello', flag_update)
+    if flag_update == 'Accept':
+        flag_update = 'accepeted'
+    if flag_update == 'Reject':
+        flag_update = 'rejected'
+    booking_repository = BookingRepository(connection)
+    booking_repository.update_flag(booking_id, flag_update)
+    return redirect('/user_dashboard')
 
 
 @app.route('/user_dashboard', methods=['GET'])
