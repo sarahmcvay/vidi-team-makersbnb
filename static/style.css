@@ -29,21 +29,21 @@ img{
 }
 
 .approvals{
-  background-color: lightgray;
+  background-color: rgb(231, 231, 231);
   border-radius: 10px;
   padding: 10px;
   margin-top: 5px;
 }
 
 .bookings{
-  background-color: lightgray;
+  background-color: rgb(231, 231, 231);
   border-radius: 10px;
   padding: 10px;
   margin-top: 5px;
 }
 
 .space{
-  background-color: lightgray;
+  background-color: rgb(231, 231, 231);
   border-radius: 10px;
   padding: 10px;
   margin: 5px;

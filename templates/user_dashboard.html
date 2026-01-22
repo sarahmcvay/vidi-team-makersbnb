@@ -18,11 +18,12 @@
               <div class='approvals'>
                 <h2>Spaces you own that require approval</h2>
                 <!-- This block will need to be corrected once approval function complete -->
+                <ul>
                 {%for pending in pending_bookings%}
                 <li>
-                  <p>start date: {{pending.start_date}}</p><br>
-                  <p>end date: {{pending.end_date}}</p><br>
-                  <p>status: {{pending.flag}}</p>
+                  <p>From: {{pending.start_date}} Until: {{pending.end_date}}</p>
+                  <p>Status: {{pending.flag.title()}}</p>
+                  <br>
                 </li>
                 {% endfor %}
                 <!-- Up to here -->
@@ -37,9 +38,9 @@
                 <ul>
                 {%for booking in booking_requested%}
                 <li>
-                  <p>start date: {{booking.start_date}}</p><br>
-                  <p>end date: {{booking.end_date}}</p><br>
-                  <p>status: {{booking.flag}}</p>
+                  <p>From: {{booking.start_date}} Until: {{booking.end_date}}</p>
+                  <p>Status: {{booking.flag.title()}}</p>
+                  <br>
                 </li>
                 {% endfor %}
                 </ul>
