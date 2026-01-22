@@ -34,10 +34,6 @@ CREATE TABLE bookings (
 );
 
 -- seed data
-INSERT INTO users (name, email, password) VALUES
-    ('test1', 'test1@email.com', 'test1password'),
-    ('test2', 'test2@email.com', 'test2password'),
-    ('test3', 'test3@email.com', 'test3password');
 
 INSERT INTO spaces (name, price, details, img_link, user_id) VALUES
     ('space1', 10.00, 'great house', 'https://plus.unsplash.com/premium_photo-1689609950112-d66095626efb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aG91c2V8ZW58MHx8MHx8fDA%3D', 1),

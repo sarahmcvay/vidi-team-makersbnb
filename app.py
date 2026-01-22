@@ -30,13 +30,12 @@ def login_form():
 
 @app.route('/login', methods=['POST'])
 def login_submit():
-    name = request.form['name']
     email = request.form['email']
     password = request.form['password']
 
     connection = get_flask_database_connection(app)
     repository = UserRepository(connection)
-    user = repository.login(name)
+    user = repository.login(email, password)
 
     if user is None:
         return render_template(

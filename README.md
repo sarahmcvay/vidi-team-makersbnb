@@ -29,7 +29,7 @@ Everyone in the team should then clone this fork to their local machine to work 
 (makersbnb-venv); createdb VIDI_MAKERSBNB_PROJECT_TEST
 
 # Seed the database with the dev Data
-(makersbnb-venv); python seed_dev_database.py
+(makersbnb-venv); python seed_dev_database.py 
 
 # Run the tests (with extra logging)
 (makersbnb-venv); pytest -sv
