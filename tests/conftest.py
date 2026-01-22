@@ -2,6 +2,7 @@ import pytest, sys, random, os
 from pathlib import Path
 from xprocess import ProcessStarter
 from lib.database_connection import DatabaseConnection
+from seed_dev_database import run_seed
 from app import app
 
 # This is a Pytest fixture.
@@ -12,6 +13,11 @@ def db_connection():
     conn = DatabaseConnection(test_mode=True)
     conn.connect()
     return conn
+
+@pytest.fixture
+def seed_db(db_connection):
+    run_seed(db_connection)
+    return db_connection
 
 # This fixture starts the test server and makes it available to the tests.
 # You don't need to understand it in detail.
