@@ -36,9 +36,9 @@ CREATE TABLE bookings (
 -- seed data
 
 INSERT INTO spaces (name, price, details, img_link, user_id) VALUES
-    ('space1', 10.00, 'great house', 'https://plus.unsplash.com/premium_photo-1689609950112-d66095626efb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aG91c2V8ZW58MHx8MHx8fDA%3D', 1),
-    ('space2', 20.00, 'ok house', 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG91c2V8ZW58MHx8MHx8fDA%3D', 2),
-    ('space3', 30.00, 'fun house', 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG91c2V8ZW58MHx8MHx8fDA%3D', 3);
+    ('Cosy 4 bedroom Cabin in the Woods', 100.00, 'Escape the noise and reconnect with nature in our charming, four-bedroom cabin tucked away in a private grove of towering pines. Whether you''re planning a multi-generational family getaway or a quiet retreat with friends, this is your perfect basecamp for forest adventures and fireside stories.', 'https://plus.unsplash.com/premium_photo-1689609950112-d66095626efb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aG91c2V8ZW58MHx8MHx8fDA%3D', 1),
+    ('6 Bedrooms Rustic Lakeside Escape', 200.00, 'Reconnect with what matters at this expansive six-bedroom retreat, perfectly perched on the water''s edge where the forest meets the shore. Designed for large families and groups who crave both space and togetherness, this rustic escape offers a front-row seat to golden sunrises and the gentle rhythm of lake life.', 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG91c2V8ZW58MHx8MHx8fDA%3D', 2),
+    ('Ultra Modern 3 Bedroom Penthouse with a Swimming Pool.', 300.00, 'Elevate your perspective in this stunning three-bedroom penthouse, where cutting-edge architecture meets the clouds. Bathed in floor-to-ceiling glass and featuring a private, heated infinity pool overlooking the city lights', 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG91c2V8ZW58MHx8MHx8fDA%3D', 3);
 
 INSERT INTO bookings (start_date, end_date, flag, user_id, space_id) VALUES
     ('2026-02-10', '2026-02-11', 'pending', 1, 2),
