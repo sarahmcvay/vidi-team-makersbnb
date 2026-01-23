@@ -5,11 +5,18 @@
         <link rel="stylesheet" href="/static/style.css" >
     </head>
     <body>
-        <div class ='navbar'>
-            <a href = '/user_dashboard' class='logo'><img src 'https://icons8.com/icon/OFOIleplyyh7/airbnb' alt='logo'></a>
-            <a href = '/browsing_spaces' class='item'>Browse Spaces</a>
-            <a href ='/create_space' class='item'>Create a New Space</a>
-        </div>
+      <form action="{{ url_for('logout') }}" method="POST">
+      <div class ='navbar'>
+        <img src = 'static/logo.png' alt='logo' width="60" height="80" class = 'item' id = 'logo'>
+        <a href = '/user_dashboard' class='logo'>Dashboard</a>
+        <p class = 'item'>|</p>
+        <a href = '/browsing_spaces' class='item'>Browse Spaces</a>
+        <p class = 'item'>|</p>
+        <a href = '/create_space' class='item'>Create a New Space</a>
+        <p class = 'item'>|</p>
+        <a><button class = 'logout' type="submit">Log Out</button></a>
+      </form>
+      </div>
         <div class="form" id ='new_space'>
         <h2>Create a new space:</h2>
         <form method="POST" action="/create_space">
