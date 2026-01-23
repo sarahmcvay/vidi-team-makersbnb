@@ -27,9 +27,9 @@
           {% if pending_bookings %}
             {% for pending in pending_bookings %}
               <div class="booking-card">
-
+                <div class="bookings_container">
                 <!-- Clickable booking info -->
-                <a href="/show_space/{{ pending.space_id }}" class="booking-card-link">
+                <!-- <a href="/show_space/{{ pending.space_id }}" class="booking-card-link"> -->
                   <p><strong>{{ pending.space_name }}</strong></p>
                   <p>Guest: {{ pending.guest_email }}</p>
                   <p>
@@ -37,9 +37,10 @@
                     until {{ pending.end_date }}
                   </p>
                   <p>Status: {{ pending.flag.title() }}</p>
+                  <a href="/show_space/{{ pending.space_id }}" class="booking-card-link">
                   <small>Click to view space</small>
                 </a>
-
+                
                 <!-- Approval buttons -->
                 <form method="POST" action="/user_dashboard">
                   <input
@@ -50,7 +51,7 @@
                   <input type="submit" name="flag" value="Accept">
                   <input type="submit" name="flag" value="Reject">
                 </form>
-
+                </div>
               </div>
             {% endfor %}
           {% else %}
@@ -67,7 +68,7 @@
           {% if booking_requested %}
 
             {% for booking in booking_requested %}
-            <div class="guest_bookings_container">
+            <div class="bookings_container">
                 <p><strong>{{ booking.space_name }}</strong></p>
                 <p>
                   From {{ booking.start_date }}
