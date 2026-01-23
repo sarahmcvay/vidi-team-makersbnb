@@ -27,18 +27,19 @@
 </head>
 
 <body>
-<form action="{{ url_for('logout') }}" method="POST">
-<div class ='navbar'>
-  <img src = '/static/logo.png' alt='logo' width="60" height="80" class = 'item' id = 'logo'>
-  <a href = '/user_dashboard' class='logo'>Dashboard</a>
-  <p class = 'item'>|</p>
-  <a href = '/browsing_spaces' class='item'>Browse Spaces</a>
-  <p class = 'item'>|</p>
-  <a href = '/create_space' class='item'>Create a New Space</a>
-  <p class = 'item'>|</p>
-  <a><button class = 'logout' type="submit">Log Out</button></a>
-</form>
-</div>
+  <form action="{{ url_for('logout') }}" method="POST">
+  <div class ='navbar'>
+    <img src = 'static/logo.png' alt='logo' width="60" height="80" class = 'item' id = 'logo'>
+    <a href = '/user_dashboard' class='logo'>Dashboard</a>
+    <p class = 'item'>|</p>
+    <a href = '/browsing_spaces' class='item'>Browse Spaces</a>
+    <p class = 'item'>|</p>
+    <a href = '/create_space' class='item'>Create a New Space</a>
+    <p class = 'item'>|</p>
+    <p>longassusername</p>
+    <a><button class = 'logout' type="submit">Log Out</button></a>
+  </form>
+  </div>
     <img src="{{ space.img_link }}" alt="placeholder">
     <p>{{ space.details }}</p>
     <p>£{{ space.price }} per night</p>

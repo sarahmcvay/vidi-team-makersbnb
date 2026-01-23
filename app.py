@@ -72,7 +72,8 @@ def logout():
 @app.route('/create_space', methods=['GET'])
 @login_required
 def get_create_space():
-  return render_template('create_space.html')
+
+    return render_template('create_space.html')
 
 @app.route('/create_space', methods=['POST'])
 @login_required
@@ -151,14 +152,18 @@ def get_booking_requested_page(booking_id):
 @login_required
 def post_flag_update():
     booking_id = request.form['booking_id']
-    flag_update = request.form['flag']
-    print('hello', flag_update)
-    if flag_update == 'Accept':
-        flag_update = 'accepted'
-    if flag_update == 'Reject':
-        flag_update = 'rejected'
-    booking_repository = BookingRepository(connection)
-    booking_repository.update_flag(booking_id, flag_update)
+    action = request.form['flag'] 
+
+    connection = get_flask_database_connection(app)
+    repository = BookingRepository(connection)
+
+    if action == 'Accept':
+        repository.update_flag(booking_id, 'accepted')  
+        booking = repository.find(booking_id)
+        repository.delete_pending_for_space(booking.space_id, exclude_id=booking_id)
+    elif action == 'Reject':
+        repository.update_flag(booking_id, 'rejected')
+
     return redirect('/user_dashboard')
 
 
@@ -171,8 +176,12 @@ def get_user_dashboard():
     spaces = space_repository.get_spaces_by_user_id(user_id)
 
     booking_repository = BookingRepository(connection)
-    booking_requested = booking_repository.get_guest_bookings_with_space(user_id)
-    pending_bookings = booking_repository.get_pending_bookings_for_host(user_id)
+    booking_requested = booking_repository.get_bookings_by_guest_user_id(user_id)
+
+    bookable_spaces = space_repository.get_space_id_by_user_id(user_id)
+# bookable spaces is a list of numbers which are space ids
+
+    pending_bookings = booking_repository.get_pending_bookings_by_space_id(bookable_spaces)
 
     return render_template('user_dashboard.html', pending_bookings = pending_bookings, booking_requested = booking_requested, spaces=spaces)
 
