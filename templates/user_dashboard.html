@@ -1,80 +1,117 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>MakersBnB: User Dashboard</title>
-        <link rel="stylesheet" href="/static/style.css" >
-    </head>
-    <body>
-      <div class ='navbar'>
-        <a href = '/user_dashboard' class='logo'><img src 'https://icons8.com/icon/OFOIleplyyh7/airbnb' alt='logo'></a>
-        <a href = '/browsing_spaces' class='item'>Browse Spaces</a>
-        <a href = '/create_space' class='item'>Create a New Space</a>
-        <form action="{{ url_for('logout') }}" method="POST">
+  <head>
+    <title>MakersBnB: User Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+    <div class="navbar">
+      <a href="/user_dashboard" class="logo">MakersBnB</a>
+      <a href="/browsing_spaces" class="item">Browse Spaces</a>
+      <a href="/create_space" class="item">Create a New Space</a>
+
+      <form action="{{ url_for('logout') }}" method="POST">
         <button type="submit">Log Out</button>
-        </form>
+      </form>
+    </div>
+
+    <div class="row">
+
+      <!-- COLUMN 1: PENDING APPROVALS -->
+      <div class="column">
+        <div class="dashboard_container">
+          <h2>Spaces you own that require approval</h2>
+
+          {% if pending_bookings %}
+            {% for pending in pending_bookings %}
+              <div class="booking-card">
+
+                <!-- Clickable booking info -->
+                <a href="/show_space/{{ pending.space_id }}" class="booking-card-link">
+                  <p><strong>{{ pending.space_name }}</strong></p>
+                  <p>Guest: {{ pending.guest_email }}</p>
+                  <p>
+                    From {{ pending.start_date }}
+                    until {{ pending.end_date }}
+                  </p>
+                  <p>Status: {{ pending.flag.title() }}</p>
+                  <small>Click to view space</small>
+                </a>
+
+                <!-- Approval buttons -->
+                <form method="POST" action="/user_dashboard">
+                  <input
+                    type="hidden"
+                    name="booking_id"
+                    value="{{ pending.booking_id }}"
+                  >
+                  <input type="submit" name="flag" value="Accept">
+                  <input type="submit" name="flag" value="Reject">
+                </form>
+
+              </div>
+            {% endfor %}
+          {% else %}
+            <p>No bookings awaiting approval.</p>
+          {% endif %}
+        </div>
       </div>
-      <div class='row'>
-        <div class='column'>
-          <div class='dashboard_container'>
-              <div class='approvals'>
-                <h2>Spaces you own that require approval</h2>
-                <!-- This block will need to be corrected once approval function complete -->
-                <ul>
-                {%for pending in pending_bookings%}
-                <li>
-                  <p>From: {{pending.start_date}} Until: {{pending.end_date}}</p>
-                  <p>Status: {{pending.flag.title()}}</p>
-                  <form method='POST' action = '/user_dashboard'>
-                    <input type = 'hidden' name = 'booking_id' value = {{pending.id}}></input>
-                    <input type='submit' name = 'flag' value = 'Accept'></input>
-                    <input type='submit' name = 'flag' value = 'Reject'></input>
-                  </form>
-                  <br>
-                </li>
-                {% endfor %}
-                <!-- Up to here -->
-                </ul>
-              </div>
-          </div>      
+
+      <!-- COLUMN 2: BOOKINGS AS GUEST -->
+      <div class="column">
+        <div class="dashboard_container">
+          <h2>Spaces you are visiting soon</h2>
+
+          {% if booking_requested %}
+
+            {% for booking in booking_requested %}
+            <div class="guest_bookings_container">
+                <p><strong>{{ booking.space_name }}</strong></p>
+                <p>
+                  From {{ booking.start_date }}
+                  until {{ booking.end_date }}
+                </p>
+                <p>Status: {{ booking.flag.title() }}</p>
+                <a
+                href="/show_space/{{ booking.space_id }}"
+                class="booking-card booking-card-link"
+              >
+                <small>Click to view space</small>
+              </a>
+            </div>
+            {% endfor %}
+          {% else %}
+            <p>You have no upcoming bookings.</p>
+          {% endif %}
         </div>
-        <div class='column'>
-          <div class='dashboard_container'>
-              <div class='bookings'>
-                <h2>Spaces you are visiting soon</h2>
-                <ul>
-                {%for booking in booking_requested%}
-                <li>
-                  <p>{{booking_space}}</p>
-                  <p>From: {{booking.start_date}} Until: {{booking.end_date}}</p>
-                  <p>Status: {{booking.flag.title()}}</p>
-                  <br>
-                </li>
-                {% endfor %}
-                </ul>
+      </div>
+
+      <!-- COLUMN 3: OWNED SPACES -->
+      <div class="column">
+        <div class="dashboard_container">
+          <h2>Your Owned Spaces</h2>
+
+          {% if spaces %}
+            {% for space in spaces %}
+              <div class="space_box_dashboard">
+                <a class="space_box" href="/show_space/{{ space.id }}">
+                  <div class="space">
+                    <img src="{{ space.img_link }}" alt="Space image">
+                    <p><strong>{{ space.name }}</strong></p>
+                    <p>{{ space.details }}</p>
+                    <p>£{{ space.price }}</p>
+                  </div>
+                </a>
               </div>
-          </div>
+            {% endfor %}
+          {% else %}
+            <p>You do not own any spaces yet.</p>
+          {% endif %}
         </div>
-        <div class='column'>
-          <div class='dashboard_container'>
-              <div class='space'>
-                <h2>Your Owned Spaces</h2>
-                  {% for space in spaces %}
-                    <div class='space_box_dashboard'>
-                      <a class = 'space_box' href = '/show_space/{{space.id}}'>
-                      <div class = 'space'>
-                      <img src='{{space.img_link}}' alt='placeholder'>
-                      <p>{{space.name}}</p>
-                      <p>{{space.details}}</p>
-                      <p>{{space.price}}</p>
-                      </div>
-                      </a>
-                    </div>
-                  {% endfor %}
-              </div>
-          </div>
-        </div>
-      </div>    
-    </body>
+      </div>
+
+    </div>
+  </body>
 </html>
-
-
-

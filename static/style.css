@@ -108,3 +108,10 @@ button{
   display: table;
   clear: both;
 }
+
+
+.guest_bookings_container {
+  text-decoration: none;
+  border-radius: 10px;
+  border: 1px solid rgb(000, 000, 000);
+}

@@ -156,16 +156,10 @@ def get_user_dashboard():
     spaces = space_repository.get_spaces_by_user_id(user_id)
 
     booking_repository = BookingRepository(connection)
-    booking_requested = booking_repository.get_bookings_by_guest_user_id(user_id)
-    # booking_id = 
-    booking_space = booking_repository.get_space_name_by_booking_id(booking_id)
+    booking_requested = booking_repository.get_guest_bookings_with_space(user_id)
+    pending_bookings = booking_repository.get_pending_bookings_for_host(user_id)
 
-    bookable_spaces = space_repository.get_space_id_by_user_id(user_id)
-# bookable spaces is a list of numbers which are space ids
-
-    pending_bookings = booking_repository.get_pending_bookings_by_space_id(bookable_spaces)
-
-    return render_template('user_dashboard.html', pending_bookings = pending_bookings, booking_requested = booking_requested, spaces=spaces, booking_space=booking_space)
+    return render_template('user_dashboard.html', pending_bookings = pending_bookings, booking_requested = booking_requested, spaces=spaces)
 
 
 
