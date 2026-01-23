@@ -84,7 +84,7 @@ class BookingRepository:
                 )
                 pending_bookings.append(item)
         return pending_bookings
-      # now lists every pending booking under space_id
+
 
     def get_booking_id_from_pending_booking(self, pending_bookings):
 
@@ -134,3 +134,4 @@ class BookingRepository:
             sql += " AND id != %s"
             params.append(exclude_id)
         self._connection.execute(sql, params)
+
