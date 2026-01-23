@@ -129,3 +129,10 @@ class BookingRepository:
             JOIN spaces ON bookings.space_id = spaces.id
             WHERE bookings.user_id = %s
         """, [user_id])
+    def delete_pending_for_space(self, space_id, exclude_id=None):
+        sql = "DELETE FROM bookings WHERE space_id = %s AND flag = 'pending'"
+        params = [space_id]
+        if exclude_id:
+            sql += " AND id != %s"
+            params.append(exclude_id)
+        self._connection.execute(sql, params)

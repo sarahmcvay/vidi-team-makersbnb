@@ -44,7 +44,25 @@ def login_submit():
         
     session['user_id'] = user.id
 
+    
     return redirect('/user_dashboard')
+
+@app.route('/register', methods = ['GET'])
+def register_form():
+    return render_template('register.html')
+  
+@app.route('/register', methods = ['POST'])
+def register_submit():
+    name = request.form['name']
+    email = request.form['email']
+    password = request.form['password']
+
+    connection = get_flask_database_connection(app)
+    repository = UserRepository(connection)
+    new_user = repository.create(User(None, name, email, password))
+    session['user_id'] = new_user.id
+    return redirect('/user_dashboard')
+
 
 @app.route('/logout', methods=['POST'])
 def logout():
@@ -130,11 +148,9 @@ def get_booking_requested_page(booking_id):
     space_requested = space_repository.find(booking_requested.space_id)
     return render_template('booking_requested.html', booking_requested = booking_requested, space_requested = space_requested)
 
-@app.route('/user_dashboard', methods = ['POST'])
+@app.route('/user_dashboard', methods=['POST'])
 @login_required
 def post_flag_update():
-    user_id = session.get('user_id')
-    connection = get_flask_database_connection(app)
     booking_id = request.form['booking_id']
     flag_update = request.form['flag']
     print('hello', flag_update)
