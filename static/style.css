@@ -25,6 +25,10 @@ img{
   height: auto;
 }
 
+#logo{
+  width: 60px;
+  height: 80px;
+}
 
 .navbar{
   background-color: rgb(255, 91, 91);
