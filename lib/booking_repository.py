@@ -100,7 +100,7 @@ class BookingRepository:
 
     def get_pending_bookings_for_host(self, host_user_id):
         return self._connection.execute("""
-            SELECT
+            SELECT 
                 bookings.id AS booking_id,
                 bookings.start_date,
                 bookings.end_date,
@@ -114,9 +114,7 @@ class BookingRepository:
             WHERE
                 spaces.user_id = %s
                 AND bookings.flag = 'pending'
-        """, [host_user_id])
-
-    
+            """, [host_user_id])
     def get_guest_bookings_with_space(self, user_id):
         return self._connection.execute("""
             SELECT
@@ -129,3 +127,10 @@ class BookingRepository:
             JOIN spaces ON bookings.space_id = spaces.id
             WHERE bookings.user_id = %s
         """, [user_id])
+    def delete_pending_for_space(self, space_id, exclude_id=None):
+        sql = "DELETE FROM bookings WHERE space_id = %s AND flag = 'pending'"
+        params = [space_id]
+        if exclude_id:
+            sql += " AND id != %s"
+            params.append(exclude_id)
+        self._connection.execute(sql, params)
