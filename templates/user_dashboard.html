@@ -43,6 +43,7 @@
                 <ul>
                 {%for booking in booking_requested%}
                 <li>
+                  <p>{{booking_space}}</p>
                   <p>From: {{booking.start_date}} Until: {{booking.end_date}}</p>
                   <p>Status: {{booking.flag.title()}}</p>
                   <br>
