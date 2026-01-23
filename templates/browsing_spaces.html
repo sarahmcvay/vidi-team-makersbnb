@@ -4,7 +4,7 @@
         <title>Browsing Spaces</title>
         <link rel="stylesheet" href="/static/style.css" >
     </head>
-    <body>
+    <body class = '.browsing_spaces'>
       <form action="{{ url_for('logout') }}" method="POST">
       <div class ='navbar'>
         <img src = 'static/logo.png' alt='logo' width="60" height="80" class = 'item' id = 'logo'>
@@ -14,20 +14,23 @@
         <p class = 'item'>|</p>
         <a href = '/create_space' class='item'>Create a New Space</a>
         <p class = 'item'>|</p>
+        <p>longassusername</p>
         <a><button class = 'logout' type="submit">Log Out</button></a>
       </form>
       </div>
-        <h1>List of Spaces</h1>
+      <h1 class = 'browsing_h1'>List of Spaces</h1>
+        <div id = 'scroll'>
         {% for space in spaces %}
-            <a class = 'space_box' href = '/show_space/{{space.id}}'>
             <div class = 'space'>
-            <img src='{{space.img_link}}' alt='placeholder'>
-            <p>{{space.name}}</p>
+            <a class = 'space_box' href = '/show_space/{{space.id}}'>
+            <img src='{{space.img_link}}' alt='placeholder' class = 'space_img'>
+            <h4>{{space.name}}</h4>
             <p>{{space.details}}</p>
-            <p>{{space.price}}</p>
-            </div>
+            <h4>£{{space.price}} Per night</h4>
             </a>
+            </div>
         {% endfor %}
+        </div>
     </body>
 </html>
 <!-- INSERT INTO spaces (name, price, details, img_link, user_id) VALUES -->
