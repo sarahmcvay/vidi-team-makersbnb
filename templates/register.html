@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Login</title>
+        <title>Register</title>
         <link rel="stylesheet" href="/static/style.css" >
     </head>
     <body>
-        <div class = 'form' id = 'login'>
-        <h1>Log in:</h1>
-        <form method="POST" action="/login">
+        <div class = 'form' id = 'register'>
+        <h1>Register:</h1>
+        <form method="POST" action="/register">
+        <label for = 'name'><p>Name:</p></label>
+        <input type="text" name="name" id = 'name' required/> 
         <label for = 'email'><p>Email:</p></label>
         <input type="text" name="email" id = 'email' required/> 
         <label for = 'password'><p>Password:</p></label>
         <input type="password" name="password" id = 'password'required/><br><br>
-        <button type="login">Log in </button><br>
-        <a href = '/register'>No account? Register here</a>
+        <button type="login">Register </button><br>
+        <a href = '/login'>Have an account? Login here</a>
         </form>
         </div>
     </body>

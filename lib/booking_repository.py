@@ -85,6 +85,54 @@ class BookingRepository:
                 pending_bookings.append(item)
         return pending_bookings
       # now lists every pending booking under space_id
-      
+
+    def get_booking_id_from_pending_booking(self, pending_bookings):
+
+        pass
+
+    def get_space_name_by_booking_id(self, booking_id):
+        rows = self._connection.execute('SELECT spaces.name FROM spaces JOIN bookings ON bookings.space_id = spaces.id WHERE bookings.id = %s', [booking_id])
+        return rows[0]["name"]
+
+
     def update_flag(self, booking_id, new_flag):
         self._connection.execute('UPDATE bookings SET flag = %s WHERE id = %s', (new_flag, booking_id))
+
+    def get_pending_bookings_for_host(self, host_user_id):
+        return self._connection.execute("""
+            SELECT
+                bookings.id AS booking_id,
+                bookings.start_date,
+                bookings.end_date,
+                bookings.flag,
+                bookings.space_id,
+                spaces.name AS space_name,
+                users.email AS guest_email
+            FROM bookings
+            JOIN spaces ON bookings.space_id = spaces.id
+            JOIN users ON bookings.user_id = users.id
+            WHERE
+                spaces.user_id = %s
+                AND bookings.flag = 'pending'
+        """, [host_user_id])
+
+    
+    def get_guest_bookings_with_space(self, user_id):
+        return self._connection.execute("""
+            SELECT
+                bookings.start_date,
+                bookings.end_date,
+                bookings.flag,
+                bookings.space_id,
+                spaces.name AS space_name
+            FROM bookings
+            JOIN spaces ON bookings.space_id = spaces.id
+            WHERE bookings.user_id = %s
+        """, [user_id])
+    def delete_pending_for_space(self, space_id, exclude_id=None):
+        sql = "DELETE FROM bookings WHERE space_id = %s AND flag = 'pending'"
+        params = [space_id]
+        if exclude_id:
+            sql += " AND id != %s"
+            params.append(exclude_id)
+        self._connection.execute(sql, params)
