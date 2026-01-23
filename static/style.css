@@ -25,6 +25,10 @@ img{
   height: auto;
 }
 
+#logo{
+  width: 60px;
+  height: 80px;
+}
 
 .navbar{
   background-color: rgb(255, 91, 91);
@@ -34,6 +38,7 @@ img{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: white;
   a, .item{
     display: inline-flex;
     flex-direction: column;
@@ -148,15 +153,48 @@ button{
   margin-top: 5px;
 }
 
+
+.browsing_spaces{
+  display: flex;
+}
+.browsing_h1{
+  text-align: center;
+  margin: 0 auto;
+  padding: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 .space{
+  justify-self: center;
+  justify-items: center;
+  align-items: center;
   background-color: rgb(231, 231, 231);
   border-radius: 10px;
-  padding: 10px;
+  padding: 20px;
   margin: 5px;
+  width: 33%;
+  h4{
+    justify-self: center;
+  }
+} 
+.space_img{
+  display: block;
+  margin: auto;
+  max-height: 350px;
+  max-width: 350px;
+  border-radius: 10px;
+}
+
+#scroll {
+    max-height: 650px;
+    overflow-y: auto;
 }
 
 .space_box{
   text-decoration: none;
+  color: black;
+}
+.space:hover{
+  border: 2px solid rgb(255, 91, 91);
 }
 
 .dashboard_container{

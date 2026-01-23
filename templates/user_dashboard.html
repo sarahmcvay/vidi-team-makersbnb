@@ -6,15 +6,18 @@
   </head>
 
   <body>
-    <!-- NAVBAR -->
-    <div class="navbar">
-      <a href="/user_dashboard" class="logo">MakersBnB</a>
-      <a href="/browsing_spaces" class="item">Browse Spaces</a>
-      <a href="/create_space" class="item">Create a New Space</a>
-
-      <form action="{{ url_for('logout') }}" method="POST">
-        <button type="submit">Log Out</button>
-      </form>
+    <form action="{{ url_for('logout') }}" method="POST">
+    <div class ='navbar'>
+      <img src = 'static/logo.png' alt='logo' width="60" height="80" class = 'item' id = 'logo'>
+      <a href = '/user_dashboard' class='logo'>Dashboard</a>
+      <p class = 'item'>|</p>
+      <a href = '/browsing_spaces' class='item'>Browse Spaces</a>
+      <p class = 'item'>|</p>
+      <a href = '/create_space' class='item'>Create a New Space</a>
+      <p class = 'item'>|</p>
+      <p>{{session.user_name}}</p>
+      <a><button class = 'logout' type="submit">Log Out</button></a>
+    </form>
     </div>
 
     <div class="row">
