@@ -25,6 +25,7 @@
       <!-- COLUMN 1: PENDING APPROVALS -->
       <div class="column">
         <div class="dashboard_container">
+        <div id = 'scroll'>
           <h2>Spaces you own that require approval</h2>
 
           {% if pending_bookings %}
@@ -61,11 +62,13 @@
             <p>No bookings awaiting approval.</p>
           {% endif %}
         </div>
+        </div>
       </div>
 
       <!-- COLUMN 2: BOOKINGS AS GUEST -->
       <div class="column">
         <div class="dashboard_container">
+        <div id = 'scroll'>
           <h2>Spaces you are visiting soon</h2>
 
           {% if booking_requested %}
@@ -86,22 +89,24 @@
               </a>
             </div>
             {% endfor %}
+        
           {% else %}
             <p>You have no upcoming bookings.</p>
           {% endif %}
+        </div>
         </div>
       </div>
 
       <!-- COLUMN 3: OWNED SPACES -->
       <div class="column">
         <div class="dashboard_container">
+        <div id = 'scroll'>
           <h2>Your Owned Spaces</h2>
-
           {% if spaces %}
             {% for space in spaces %}
               <div class="space_box_dashboard">
                 <a class="space_box" href="/show_space/{{ space.id }}">
-                  <div class="space">
+                  <div class="space_owner_dashboard">
                     <img src="{{ space.img_link }}" alt="Space image">
                     <p><strong>{{ space.name }}</strong></p>
                     <p>{{ space.details }}</p>
@@ -113,6 +118,7 @@
           {% else %}
             <p>You do not own any spaces yet.</p>
           {% endif %}
+        </div>
         </div>
       </div>
 
