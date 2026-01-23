@@ -72,8 +72,7 @@ def logout():
 @app.route('/create_space', methods=['GET'])
 @login_required
 def get_create_space():
-
-    return render_template('create_space.html')
+  return render_template('create_space.html')
 
 @app.route('/create_space', methods=['POST'])
 @login_required
