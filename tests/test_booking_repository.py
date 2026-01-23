@@ -72,3 +72,13 @@ def test_update_flag(db_connection):
     repository.update_flag(1, 'accepted')
     value = repository.find(1)
     assert value == Booking(1, date(2026, 2, 10), date(2026, 2, 11), 'accepted', 1, 2)
+
+
+"""
+we can retrieve a space name by searching with the booking id
+"""
+def test_get_space_name_by_booking_id(db_connection):
+    db_connection.seed("seeds/makersbnb.sql")
+    repository = BookingRepository(db_connection)
+    result = repository.get_space_name_by_booking_id(1)
+    assert result == "space2"
