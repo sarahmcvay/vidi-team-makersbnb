@@ -84,7 +84,7 @@ class BookingRepository:
                 )
                 pending_bookings.append(item)
         return pending_bookings
-      # now lists every pending booking under space_id
+
 
     def get_booking_id_from_pending_booking(self, pending_bookings):
 
@@ -100,7 +100,7 @@ class BookingRepository:
 
     def get_pending_bookings_for_host(self, host_user_id):
         return self._connection.execute("""
-            SELECT
+            SELECT 
                 bookings.id AS booking_id,
                 bookings.start_date,
                 bookings.end_date,
@@ -114,9 +114,7 @@ class BookingRepository:
             WHERE
                 spaces.user_id = %s
                 AND bookings.flag = 'pending'
-        """, [host_user_id])
-
-    
+            """, [host_user_id])
     def get_guest_bookings_with_space(self, user_id):
         return self._connection.execute("""
             SELECT
@@ -136,3 +134,4 @@ class BookingRepository:
             sql += " AND id != %s"
             params.append(exclude_id)
         self._connection.execute(sql, params)
+
