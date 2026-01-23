@@ -86,7 +86,8 @@ img{
   }
 
 #new_space{
-    margin-top: 75px;
+    position: absolute;
+    top: 10%;
     h2{
       margin-bottom: 50px;
     }
@@ -176,12 +177,47 @@ button{
     justify-self: center;
   }
 } 
+.single_space{
+  justify-self: center;
+  justify-items: center;
+  align-items: center;
+  background-color: rgb(231, 231, 231);
+  border-radius: 10px;
+  padding: 20px;
+  padding-top: 30px;
+  margin: 5px;
+  width: 50%;
+  height: auto;
+  h4, p, a, h1{
+    justify-self: center;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    align-self: center;
+  }
+  img{
+    display: block;
+    max-height: 400px;
+    max-width: 400%;
+    width: auto;
+    height: auto;
+  }
+}
+
+.line_center{
+  justify-self: center;
+  justify-items: center;
+  align-items: center;
+}
 .space_img{
   display: block;
   margin: auto;
   max-height: 350px;
   max-width: 350px;
   border-radius: 10px;
+  width: auto;
+  height: auto;
 }
 
 #scroll {
