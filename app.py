@@ -43,9 +43,10 @@ def login_submit():
             error="Invalid email or password"), 401
         
     session['user_id'] = user.id
+    session['user_name'] = user.name
 
     
-    return redirect('/user_dashboard')
+    return redirect('/browsing_spaces')
 
 @app.route('/register', methods = ['GET'])
 def register_form():
@@ -61,7 +62,8 @@ def register_submit():
     repository = UserRepository(connection)
     new_user = repository.create(User(None, name, email, password))
     session['user_id'] = new_user.id
-    return redirect('/user_dashboard')
+    session['user_name'] = new_user.name
+    return redirect('/browsing_spaces')
 
 
 @app.route('/logout', methods=['POST'])
