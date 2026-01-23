@@ -7,7 +7,7 @@
     <body>
       <form action="{{ url_for('logout') }}" method="POST">
       <div class ='navbar'>
-        <img src = 'static/logo.png' alt='logo' width="60" height="80" class = 'item' id = 'logo'>
+        <img src = '/static/logo.png' alt='logo' width="60" height="80" class = 'item' id = 'logo'>
         <a href = '/user_dashboard' class='logo'>Dashboard</a>
         <p class = 'item'>|</p>
         <a href = '/browsing_spaces' class='item'>Browse Spaces</a>
@@ -18,15 +18,17 @@
         <a><button class = 'logout' type="submit">Log Out</button></a>
       </form>
       </div>
+      <div class = 'single_space'>
         <h1>Thank you for requesting {{space_requested.name}}!</h1>
         <div>
-        <img src='{{space_requested.img_link}}' alt='placeholder'>
-        <p>Details: {{space_requested.details}}</p>
-        <p>Requested From: {{booking_requested.start_date}}</p>
-        <p>Requested Until: {{booking_requested.end_date}}</p>
-        <p>Please wait for conformation</p>
-        <a href = '/user_dashboard'>To dashboard</a>
-        <a href = '/browsing_spaces'>Back to Browsing</a>
+          <img src='{{space_requested.img_link}}' alt='placeholder'>
+          <p>Details: {{space_requested.details}}</p>
+          <p>Requested From: {{booking_requested.start_date}}</p>
+          <p>Requested Until: {{booking_requested.end_date}}</p>
+          <p>Please wait for conformation</p>
+          <a href = '/user_dashboard'>To dashboard</a>
+          <a href = '/browsing_spaces'>Back to Browsing</a>
         </div>
+      </div>
     </body>
 </html>
